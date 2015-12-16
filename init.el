@@ -91,7 +91,7 @@
 (setq uniquify-buffer-name-style 'post-forward-angle-brackets)
 
 (require 'auto-complete-config)
-; (add-to-list 'ac-dictionary-directories "~/.emacs.d/elisp/ac-dict")
+(add-to-list 'ac-dictionary-directories "~/.emacs.d/el-get/auto-complete/ac-dict")
 (ac-config-default)
 (define-key ac-mode-map (kbd "M-TAB") 'auto-complete)
 (define-key ac-menu-map "\C-n" 'ac-next)
@@ -124,10 +124,28 @@
       (flymake-mode t)
       (flymake-jshint-load)
       ))
+
+(defun ac-js2-setup-auto-complete-mode-patch ()
+  ;; Patch for ac-js2 to make it work property.
+  ;; https://github.com/ScottyB/ac-js2/issues/18
+
+  "Setup ac-js2 to be used with auto-complete-mode."
+  (add-to-list 'ac-sources 'ac-source-js2)
+  (auto-complete-mode)
+  (eval '(ac-define-source "js2"
+           '((candidates . ac-js2-ac-candidates)
+             (document . ac-js2-ac-document)
+             (prefix .  ac-js2-ac-prefix)
+             (requires . -1)))))
+
+;; Activate the patch
+(advice-add 'ac-js2-setup-auto-complete-mode :override 'ac-js2-setup-auto-complete-mode-patch)
+
 (add-hook 'js2-mode-hook
     (lambda ()
       (flymake-mode t)
       (flymake-jshint-load)
+      (ac-js2-mode t)
       ))
 
 ;; setting for flymake
