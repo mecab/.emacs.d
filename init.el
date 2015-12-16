@@ -2,6 +2,14 @@
 
 ;; (require 'cl)
 ;; Language
+
+(when (eq window-system 'mac)
+  (setq mac-option-modifier 'meta)
+  (set-face-attribute 'default nil :family "Monaco" :height 120))
+
+(when (eq window-system 'w32)
+  (set-face-attribute 'default nil :family "Consolas" :height 120))
+
 (set-language-environment "Japanese")
 (prefer-coding-system 'utf-8-dos)
 (set-default-coding-systems 'utf-8-dos)
@@ -10,7 +18,8 @@
 
 ;; Appearance
 (load-theme 'tango-dark)
-(set-face-attribute 'default nil :family "Consolas" :height 104)
+(menu-bar-mode 0)
+(tool-bar-mode 0)
 
 ;; Column
 (set-fill-column 80)
@@ -31,21 +40,38 @@
 
 (require 'auto-install)
 (setq auto-install-directory "~/.emacs.d/auto-install/")
-(auto-install-update-emacswiki-package-name t)
+(ignore-errors (auto-install-update-emacswiki-package-name t) t)
 (auto-install-compatibility-setup)
 
 (add-to-list 'load-path "~/.emacs.d/el-get/el-get")
 (unless (require 'el-get nil 'noerror)
   (with-current-buffer
       (url-retrieve-synchronously
-       "https://raw.github.com/dimitri/el-get/master/el-get-install.el")
+       "https://raw.githubusercontent.com/dimitri/el-get/master/el-get-install.el")
     (let (el-get-master-branch)
       (goto-char (point-max))
       (eval-print-last-sexp))))
 (el-get 'sync)
 
-(add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
+;;(unwind-protect
+;;    (progn
+;;      (unless (require 'el-get nil 'noerror))))
+;;	(with-current-buffer
+;;	    (url-retrieve-synchronously
+;;	     "https://raw.github.com/dimitri/el-get/master/el-get-install.el")
+;;	  (let (el-get-master-branch)
+;;	    (goto-char (point-max))
+;;	    (eval-print-last-sexp))))))
+;;(unwind-protect (el-get 'sync) )
+
+(require 'package)
+(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
 (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/")) ; ついでにmarmaladeも追加
+(when (< emacs-major-version 24)
+  ;; For important compatibility libraries like cl-lib
+  (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
+(package-initialize)
+; (package-refresh-contents)
 
 (autoload 'php-mode "php-mode-improved" "Major mode for editing php code." t)
 (add-to-list 'auto-mode-alist '("\\.php$" . php-mode))
@@ -146,7 +172,7 @@
       popwin:special-display-config)
 (push '("*ginger*" :height 20 :noselect t) popwin:special-display-config)
 (push '("*anything*" :height 20) popwin:special-display-config)
-(push '("^\*magit" :regexp t :position left :width 100) popwin:special-display-config)
+; (push '("^\*magit" :regexp t :position left :width 100) popwin:special-display-config)
 (global-set-key (kbd "C-x C-j") 'direx:jump-to-directory-other-window)
 
 (global-set-key "\C-xf" 'anything-filelist+)
@@ -198,7 +224,7 @@
 (defalias 'javascript-mode 'js2-mode)
 ; (require 'nxhtml)
 ; (require 'markdown-mode)
-(require 'magit)
+; (require 'magit)
 ; (require 'org)
 ; (require 'org-compat)
 ; (require 'org-export-generic)
@@ -432,6 +458,6 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(js2-function-param ((t (:foreground "Green"))))
- '(magit-item-highlight ((t (:inherit highlight :background "PeachPuff4" :foreground "snow"))))
+;  '(magit-item-highlight ((t (:inherit highlight :background "PeachPuff4" :foreground "snow"))))
  '(powerline-active1 ((t (:background "cyan" :foreground "brightwhite"))) t)
  '(powerline-active2 ((t (:inherit mode-line :background "brightwhite"))) t))

@@ -9,6 +9,7 @@ recentf
 /semanticdb/
 /var/
 /auto-save-list/
+/elpa/archives/
 /el-get/*
 !/el-get/.status.el
 
