@@ -1,0 +1,113 @@
+ls
+ls
+exit
+list-processes
+(get-process "flymake-proc")
+(process-id (get-process "flymake-proc"))
+kill 9972
+list-processes
+list-processes
+list-processes
+hoge
+kille
+kill
+kill -9 9972
+list-processes
+list-processes
+sudo
+sudo kill -9 9972
+(get-process "flymake-proc")
+gnufind
+gnufind --help
+gnufind .
+ping
+ping google.com
+gnufind
+gnufind --help
+find
+~/Apps/gnu/find
+~/Apps/gnu/find --help
+gnufind
+ls
+gnufind . -name "*.js"
+gnufind . -name "*.js" | ls
+gnufind . -name "*Cube*" | ls
+gnufind . -name "*Cube*"
+gnufind . -name "*Cube*"
+git init
+node
+ls
+dir
+npm init
+npm init
+ls
+cat package.json 
+npm install request --save
+ls
+node app.js
+node app.js
+node app.js
+node app.js
+node app.js
+node app.js
+clear
+rewind
+re
+r
+npm install odata
+npm install odatajs
+npm install datajs
+node app.js
+node app.js
+node app.js
+node app.js
+node app.js
+node app.js
+node app.js
+node app.js
+node app.js
+node app.js
+node app.js
+node app.js
+node app.js
+node app.js
+node app.js
+node app.js
+node app.js
+node app.js
+node app.js
+node app.js
+node app.js
+node app.js
+node app.js
+node app.js
+node app.js
+node app.js
+node app.js
+node app.js
+node app.js
+node app.js
+node app.js
+node app.js
+node app.js
+node app.js
+node app.js
+node app.js
+node app.js
+node app.js
+node app.js
+node app.js
+node app.js
+node app.js
+node app.js
+cd ..
+cd ..
+cd ..
+cd ..
+cd ..
+cd tmp
+cd trans/
+node app.js
+node app.js
+node app.js
+node

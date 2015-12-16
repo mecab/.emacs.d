@@ -1,0 +1,8 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: Func
+# key: Func
+# binding: direct-keybinding
+# --
+function${1: funcName}($2) {
+    $0
+}

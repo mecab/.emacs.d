@@ -1,0 +1,12 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: Class
+# key: Class
+# binding: direct-keybinding
+# --
+var ${1:ClassName} = (function() {
+    function $1($2) {
+        $0
+    }
+
+    return $1;
+})();
