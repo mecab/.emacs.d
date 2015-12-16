@@ -1,0 +1,12 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: Module
+# key: Module
+# binding: direct-keybinding
+# --
+(function(global) {
+    $0
+
+    // Exports
+    global.${1:ModuleName} = ${2:\{\}};
+})((this || 0).self || global);
+

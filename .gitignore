@@ -1,0 +1,15 @@
+*[~]
+[#]*[#]
+
+/.python-environments
+/ac-comphist.dat
+/anything-c-adaptive-history
+recentf
+.recentf
+/semanticdb/
+/var/
+/auto-save-list/
+/el-get/*
+!/el-get/.status.el
+
+*.elc
