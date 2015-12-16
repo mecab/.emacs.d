@@ -8,7 +8,7 @@
   (set-face-attribute 'default nil :family "Monaco" :height 120))
 
 (when (eq window-system 'w32)
-  (set-face-attribute 'default nil :family "Consolas" :height 120))
+  (set-face-attribute 'default nil :family "Consolas" :height 104))
 
 (set-language-environment "Japanese")
 (prefer-coding-system 'utf-8-dos)
@@ -53,17 +53,6 @@
       (eval-print-last-sexp))))
 (el-get 'sync)
 
-;;(unwind-protect
-;;    (progn
-;;      (unless (require 'el-get nil 'noerror))))
-;;	(with-current-buffer
-;;	    (url-retrieve-synchronously
-;;	     "https://raw.github.com/dimitri/el-get/master/el-get-install.el")
-;;	  (let (el-get-master-branch)
-;;	    (goto-char (point-max))
-;;	    (eval-print-last-sexp))))))
-;;(unwind-protect (el-get 'sync) )
-
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
 (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/")) ; ついでにmarmaladeも追加
@@ -71,7 +60,6 @@
   ;; For important compatibility libraries like cl-lib
   (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
 (package-initialize)
-; (package-refresh-contents)
 
 (autoload 'php-mode "php-mode-improved" "Major mode for editing php code." t)
 (add-to-list 'auto-mode-alist '("\\.php$" . php-mode))
