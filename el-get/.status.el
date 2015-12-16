@@ -1,4 +1,7 @@
-((anything status "installed" recipe
+((ac-js2 status "installed" recipe
+         (:name ac-js2 :description "An attempt at context sensitive auto-completion for Javascript" :type github :pkgname "ScottyB/ac-js2" :depends
+                (skewer-mode auto-complete)))
+ (anything status "installed" recipe
            (:name anything :website "http://www.emacswiki.org/emacs/Anything" :description "Open anything / QuickSilver-like candidate-selection framework" :type git :url "http://repo.or.cz/r/anything-config.git" :shallow nil :load-path
                   ("." "extensions" "contrib")
                   :features anything))
