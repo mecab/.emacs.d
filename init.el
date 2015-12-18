@@ -21,6 +21,12 @@
 (menu-bar-mode 0)
 (tool-bar-mode 0)
 
+(set-frame-parameter nil 'alpha 95) ;; Opacity
+(defun set-alpha (alpha-num)
+  "set frame parameter 'alpha"
+  (interactive "nAlpha: ")
+  (set-frame-parameter nil 'alpha (cons alpha-num '(95))))
+
 ;; Column
 (set-fill-column 80)
 (column-number-mode 1)
@@ -343,6 +349,8 @@
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
 (setq web-mode-code-indent-offset 2)
 
+(require 'scss-mode)
+
 (load-library "ginger-api")
 (load-library "ginger-rephrase-api")
 
@@ -378,7 +386,7 @@
 (autoload 'powershell-mode "PowerShell-Mode" "Run powershell as a shell within emacs." t)
 (require 'shell-pop)
 (shell-pop-set-internal-mode "ansi-term") ;; ansi-termを使うよ
-(shell-pop-set-internal-mode-shell "powershell") ;; zshを使うよ
+(shell-pop-set-internal-mode-shell "bash") ;; zshを使うよ
 (defvar ansi-term-after-hook nil)
 (add-hook 'ansi-term-after-hook
           '(lambda ()
