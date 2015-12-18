@@ -31,6 +31,10 @@
 (set-fill-column 80)
 (column-number-mode 1)
 
+(unless (eq (window-system) nil)
+  (setq default-directory "~/")
+  (setq command-line-default-directory "~/"))
+
 (add-to-list 'load-path "~/.emacs.d/site-lisp")
 (add-to-list 'load-path "~/.emacs.d/elisp")
 (add-to-list 'load-path "~/.emacs.d/elisp/magit")
