@@ -92,6 +92,8 @@
                  (deferred)
                  :provide
                  (request-deferred)))
+ (scss-mode status "installed" recipe
+            (:name scss-mode :description "Major mode for editing SCSS files(http://sass-lang.com)" :type github :pkgname "antonj/scss-mode" :features scss-mode))
  (simple-httpd status "installed" recipe
                (:name simple-httpd :description "A simple Emacs web server" :type github :pkgname "skeeto/emacs-http-server"))
  (skewer-mode status "installed" recipe
