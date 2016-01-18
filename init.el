@@ -246,14 +246,16 @@
 
 (global-set-key "\C-x\C-g" 'anything-git-project)
 
-; (require 'virtualenv)
+(require 'virtualenvwrapper)
+(setq venv-location (expand-file-name "~/.virtualenvs"))
+(setq python-environment-directory venv-location)
 
 (global-set-key "\C-x2" (lambda () (interactive)(split-window-vertically) (other-window 1)))
 (global-set-key "\C-x3" (lambda () (interactive)(split-window-horizontally) (other-window 1)))
 
 (defalias 'javascript-mode 'js2-mode)
 ; (require 'nxhtml)
-; (require 'markdown-mode)
+(require 'markdown-mode)
 ; (require 'magit)
 ; (require 'org)
 ; (require 'org-compat)
@@ -446,6 +448,9 @@
                (throw 'end-flag t)))))))
 
 (global-set-key "\C-c\C-r" 'window-resizer)
+
+;; Load the latest python-mode to fix https://bugs.launchpad.net/python-mode/+bug/901541
+(load-library "~/.emacs.d/elisp/python-mode")
 
 ;; With window-system (2/2)
 (unless (eq (window-system) nil)
