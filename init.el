@@ -141,7 +141,6 @@
 
 (define-key global-map (kbd "C-\\") 'hs-toggle-hiding)
 
-; (add-to-list 'load-path "/home/mecab/.emacs.d/el-get/jshint-mode")
 (require 'flymake-jshint)
 (add-hook 'javascript-mode-hook
     (lambda ()
