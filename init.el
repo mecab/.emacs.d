@@ -1,7 +1,19 @@
 ;; -*- coding: utf-8 -*-
 
 ;; (require 'cl)
-;; Language
+
+;; With window-system (1/2)
+;; Continue to the place just before custom-set-variables
+(unless (eq (window-system) nil)
+  (setq default-directory "~/")
+  (setq command-line-default-directory "~/")
+  (tool-bar-mode 0)
+  
+  (set-frame-parameter nil 'alpha 95) ;; Opacity
+  (defun set-alpha (alpha-num)
+    "set frame parameter 'alpha"
+    (interactive "nAlpha: ")
+    (set-frame-parameter nil 'alpha (cons alpha-num '(95)))))
 
 (when (eq window-system 'mac)
   (setq mac-option-modifier 'meta)
@@ -10,6 +22,7 @@
 (when (eq window-system 'w32)
   (set-face-attribute 'default nil :family "Consolas" :height 104))
 
+;; Language
 (set-language-environment "Japanese")
 (prefer-coding-system 'utf-8-dos)
 (set-default-coding-systems 'utf-8-dos)
@@ -20,12 +33,6 @@
 (load-theme 'tango-dark)
 (menu-bar-mode 0)
 (tool-bar-mode 0)
-
-(set-frame-parameter nil 'alpha 95) ;; Opacity
-(defun set-alpha (alpha-num)
-  "set frame parameter 'alpha"
-  (interactive "nAlpha: ")
-  (set-frame-parameter nil 'alpha (cons alpha-num '(95))))
 
 ;; Column
 (set-fill-column 80)
@@ -43,6 +50,12 @@
                     :background "dark slate blue")
 (set-face-attribute 'show-paren-mismatch-face nil
                     :foreground "white" :background "medium violet red")
+
+;;;
+;;;
+;;; CONFIGURE PACKAGE MANAGERS
+;;;
+;;;
 
 (require 'auto-install)
 (setq auto-install-directory "~/.emacs.d/auto-install/")
@@ -66,6 +79,12 @@
   ;; For important compatibility libraries like cl-lib
   (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
 (package-initialize)
+
+;;;
+;;;
+;;;
+;;;
+;;;
 
 (autoload 'php-mode "php-mode-improved" "Major mode for editing php code." t)
 (add-to-list 'auto-mode-alist '("\\.php$" . php-mode))
@@ -123,7 +142,6 @@
 
 (define-key global-map (kbd "C-\\") 'hs-toggle-hiding)
 
-; (add-to-list 'load-path "/home/mecab/.emacs.d/el-get/jshint-mode")
 (require 'flymake-jshint)
 (add-hook 'javascript-mode-hook
     (lambda ()
@@ -228,14 +246,16 @@
 
 (global-set-key "\C-x\C-g" 'anything-git-project)
 
-; (require 'virtualenv)
+(require 'virtualenvwrapper)
+(setq venv-location (expand-file-name "~/.virtualenvs"))
+(setq python-environment-directory venv-location)
 
 (global-set-key "\C-x2" (lambda () (interactive)(split-window-vertically) (other-window 1)))
 (global-set-key "\C-x3" (lambda () (interactive)(split-window-horizontally) (other-window 1)))
 
 (defalias 'javascript-mode 'js2-mode)
 ; (require 'nxhtml)
-; (require 'markdown-mode)
+(require 'markdown-mode)
 ; (require 'magit)
 ; (require 'org)
 ; (require 'org-compat)
@@ -312,9 +332,6 @@
 
 (require 'rainbow-delimiters)
 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
-
-(require 'git-gutter-fringe+)
-(add-hook 'prog-mode-hook 'git-gutter+-mode)
 
 (require 'ido)
 (ido-mode t)
@@ -431,6 +448,20 @@
                (throw 'end-flag t)))))))
 
 (global-set-key "\C-c\C-r" 'window-resizer)
+
+;; Load the latest python-mode to fix https://bugs.launchpad.net/python-mode/+bug/901541
+(load-library "~/.emacs.d/elisp/python-mode")
+
+;; With window-system (2/2)
+(unless (eq (window-system) nil)
+  (require 'git-gutter-fringe+)
+  (add-hook 'prog-mode-hook 'git-gutter+-mode))
+
+;;
+;;
+;; BELOW RESERVE FOR THE CUSTOM
+;;
+;;
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
