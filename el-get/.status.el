@@ -107,13 +107,13 @@
 		     (js2-mode simple-httpd)
 		     :features skewer-setup :post-init
 		     (skewer-setup)))
+ (tabbar status "installed" recipe
+	 (:name tabbar :description "Display a tab bar in the header line." :type github :pkgname "dholm/tabbar" :lazy t))
  (tabulated-list status "installed" recipe
 		 (:name tabulated-list :type github :pkgname "sigma/tabulated-list.el" :description "generic major mode for tabulated lists." :website "http://github.com/sigma/tabulated-list.el"))
  (virtualenvwrapper status "installed" recipe
 		    (:name virtualenvwrapper :type github :website "https://github.com/porterjamesj/virtualenvwrapper.el" :description "virtualenv tool for emacs" :pkgname "porterjamesj/virtualenvwrapper.el" :depends
 			   (dash s)))
- (web-mode status "installed" recipe
-	   (:name web-mode :description "emacs major mode for editing PHP/JSP/ASP HTML templates (with embedded CSS and JS blocks)" :type github :pkgname "fxbois/web-mode"))
  (web-mode status "installed" recipe
 	   (:name web-mode :description "emacs major mode for editing PHP/JSP/ASP HTML templates (with embedded CSS and JS blocks)" :type github :pkgname "fxbois/web-mode"))
  (yaml-mode status "installed" recipe
