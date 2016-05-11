@@ -40,7 +40,6 @@
 
 (add-to-list 'load-path "~/.emacs.d/site-lisp")
 (add-to-list 'load-path "~/.emacs.d/elisp")
-(add-to-list 'load-path "~/.emacs.d/elisp/magit")
 (add-to-list 'load-path "~/.emacs.d/auto-install/")
 
 (show-paren-mode 1)
@@ -260,7 +259,6 @@
 ; (require 'org)
 ; (require 'org-compat)
 ; (require 'org-export-generic)
-; (load-library "markdown")
 
 ; (require 'gist)
 
@@ -380,6 +378,9 @@
 (global-set-key (kbd "M-<right>") 'tabbar-forward-tab)
 (global-set-key (kbd "M-<left>") 'tabbar-backward-tab)
 
+(require 'descbinds-anything)
+(descbinds-anything-install)
+
 (load-library "ginger-api")
 (load-library "ginger-rephrase-api")
 
@@ -412,7 +413,6 @@
 
 ;; shell-pop
 ;; C-tでshellをポップアップ
-(autoload 'powershell-mode "PowerShell-Mode" "Run powershell as a shell within emacs." t)
 (require 'shell-pop)
 (shell-pop-set-internal-mode "ansi-term") ;; ansi-termを使うよ
 (shell-pop-set-internal-mode-shell "bash") ;; zshを使うよ
@@ -460,9 +460,6 @@
                (throw 'end-flag t)))))))
 
 (global-set-key "\C-c\C-r" 'window-resizer)
-
-;; Load the latest python-mode to fix https://bugs.launchpad.net/python-mode/+bug/901541
-(load-library "~/.emacs.d/elisp/python-mode")
 
 ;; With window-system (2/2)
 (unless (eq (window-system) nil)
