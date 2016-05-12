@@ -141,12 +141,12 @@
 
 (define-key global-map (kbd "C-\\") 'hs-toggle-hiding)
 
-(require 'flymake-jshint)
-(add-hook 'javascript-mode-hook
-    (lambda ()
-      (flymake-mode t)
-      (flymake-jshint-load)
-      ))
+(require 'flycheck)
+(global-flycheck-mode t)
+(eval-after-load 'flycheck
+  '(custom-set-variables
+    '(flycheck-disabled-checkers '(javascript-jshint javascript-jscs))
+    ))
 
 (defun ac-js2-setup-auto-complete-mode-patch ()
   ;; Patch for ac-js2 to make it work property.
@@ -166,8 +166,6 @@
 
 (add-hook 'js2-mode-hook
     (lambda ()
-      (flymake-mode t)
-      (flymake-jshint-load)
       (ac-js2-mode t)
       ))
 
