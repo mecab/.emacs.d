@@ -397,7 +397,9 @@
 
 ;; キーに割り当てる
 (global-set-key (kbd "M-<right>") 'tabbar-forward-tab)
+(global-set-key (kbd "M-C-f") 'tabbar-forward-tab)
 (global-set-key (kbd "M-<left>") 'tabbar-backward-tab)
+(global-set-key (kbd "M-C-b") 'tabbar-backward-tab)
 
 (require 'descbinds-anything)
 (descbinds-anything-install)

@@ -235,7 +235,7 @@
  '(powerline-active1 ((t (:background "cyan" :foreground "brightwhite"))) t)
  '(powerline-active2 ((t (:inherit mode-line :background "brightwhite"))) t)
  '(tabbar-button ((t (:inherit tabbar-default))))
- '(tabbar-default ((t (:inherit variable-pitch :foreground "grey75" :height 0.9 :family "consolas"))))
+ '(tabbar-default ((t (:inherit variable-pitch :background "#222" :foreground "grey75" :height 0.9 :family "consolas"))))
  '(tabbar-modified ((t (:inherit tabbar-default :foreground "green"))))
  '(tabbar-selected ((t (:inherit tabbar-default :background "DodgerBlue1" :foreground "white"))))
  '(tabbar-unselected ((t (:inherit tabbar-default)))))
