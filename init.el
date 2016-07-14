@@ -32,7 +32,6 @@
 ;; Appearance
 (load-theme 'tango-dark)
 (menu-bar-mode 0)
-(tool-bar-mode 0)
 
 ;; Column
 (set-fill-column 80)
