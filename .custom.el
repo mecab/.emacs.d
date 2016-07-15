@@ -244,4 +244,5 @@
  '(tabbar-modified ((t (:inherit tabbar-default :foreground "green"))))
  '(tabbar-selected ((t (:inherit tabbar-default :background "DodgerBlue1" :foreground "white"))))
  '(tabbar-unselected ((t (:inherit tabbar-default))))
- '(whitespace-line ((t nil))))
+ '(whitespace-line ((t nil)))
+ '(whitespace-space ((t (:foreground "darkgray")))))
