@@ -147,6 +147,45 @@
     '(flycheck-disabled-checkers '(javascript-jshint javascript-jscs))
     ))
 
+;; 今開いているファイルの親ディレクトリをどんどん辿っていって node_modules ディレクトリを探して、その中の node_modules/.bin/eslint や node_modules/.bin/jshint が存在するなら、それを flycheck の時に使うようにする。
+;; http://qiita.com/k_ui/items/7b7046865216107f3ac2
+
+(defun kui/traverse-parents-for (filename &optional dirname)
+  "Find FILENAME from parent directories of the current buffer file or DIRNAME"
+  (if dirname
+      (let ((path (concat (file-name-as-directory dirname) filename)))
+        (if (file-exists-p path)
+            path
+          (if (string= "/" dirname)
+              nil
+            (kui/traverse-parents-for filename
+                                      (file-name-directory
+                                       (directory-file-name dirname))))))
+    (kui/traverse-parents-for filename
+                              (file-name-directory buffer-file-name))))
+
+(defun kui/find-node-modules-bin (binname)
+  "Find executable file named BINNAME from the node_modules directory"
+  (let* ((moddir (kui/traverse-parents-for "node_modules"))
+         (bin (if moddir (format "%s/.bin/%s" moddir binname))))
+    (if (file-executable-p bin) bin)))
+
+(defun kui/flycheck-set-node-modules-bin (checker binname)
+  (let ((bin (kui/find-node-modules-bin binname)))
+    (when bin
+      (message "auto-detect %s: %s" binname bin)
+      (flycheck-set-checker-executable checker bin))))
+
+(defun kui/flycheck-set-checker-executable-from-node-modules ()
+  (kui/flycheck-set-node-modules-bin 'javascript-jshint "jshint")
+  (kui/flycheck-set-node-modules-bin 'javascript-eslint "eslint"))
+
+(add-hook 'js-mode-hook
+          'kui/flycheck-set-checker-executable-from-node-modules)
+
+(add-hook 'js2-mode-hook
+          'kui/flycheck-set-checker-executable-from-node-modules)
+
 (defun ac-js2-setup-auto-complete-mode-patch ()
   ;; Patch for ac-js2 to make it work property.
   ;; https://github.com/ScottyB/ac-js2/issues/18
@@ -494,6 +533,10 @@
 (unless (eq (window-system) nil)
   (require 'git-gutter-fringe+)
   (add-hook 'prog-mode-hook 'git-gutter+-mode))
+
+;; Keep shell environment variable
+(when (memq window-system '(mac ns))
+  (exec-path-from-shell-initialize))
 
 ;;
 ;;

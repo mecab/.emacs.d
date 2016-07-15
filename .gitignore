@@ -1,6 +1,7 @@
 *[~]
 [#]*[#]
 *.lock
+/ido.last
 
 /.python-environments
 /ac-comphist.dat
