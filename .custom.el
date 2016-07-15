@@ -203,6 +203,7 @@
  '(anything-input-idle-delay 0.1 t)
  '(electric-indent-mode t)
  '(electric-layout-mode nil)
+ '(flycheck-disabled-checkers (quote (javascript-jshint javascript-jscs)))
  '(help-at-pt-display-when-idle (quote (flymake-overlay)) nil (help-at-pt))
  '(help-at-pt-timer-delay 0.3)
  '(highlight-symbol-idle-delay 0.5)
@@ -224,6 +225,9 @@
  '(tabbar-separator (quote (1)))
  '(web-mode-code-indent-offset 2)
  '(web-mode-markup-indent-offset 2)
+ '(whitespace-style
+   (quote
+    (face tabs spaces trailing lines space-before-tab newline indentation empty space-after-tab tab-mark)))
  '(yas-trigger-key "TAB"))
 
 (custom-set-faces
