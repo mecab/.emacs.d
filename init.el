@@ -8,14 +8,14 @@
   (setq default-directory "~/")
   (setq command-line-default-directory "~/")
   (tool-bar-mode 0)
-  
+
   (set-frame-parameter nil 'alpha 95) ;; Opacity
   (defun set-alpha (alpha-num)
     "set frame parameter 'alpha"
     (interactive "nAlpha: ")
     (set-frame-parameter nil 'alpha (cons alpha-num '(95)))))
 
-(when (eq window-system 'mac)
+(when (member window-system '(ns mac))
   (setq mac-option-modifier 'meta)
   (set-face-attribute 'default nil :family "Monaco" :height 120))
 
@@ -296,7 +296,7 @@
 ; (require 'org-compat)
 ; (require 'org-export-generic)
 
-; (require 'gist)
+(require 'gist)
 
 ; (require 'longlines-jp)
 ; (setq longlines-jp-show-hard-newlines t)

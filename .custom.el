@@ -210,6 +210,7 @@
  '(highlight-symbol-idle-delay 0.5)
  '(highlight-symbol-on-navigation-p t)
  '(indent-tabs-mode nil)
+ '(jedi:get-in-function-call-delay 300)
  '(js2-auto-indent-p t)
  '(js2-enter-indents-newline t)
  '(js2-global-externs

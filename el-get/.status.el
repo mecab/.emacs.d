@@ -1,8 +1,6 @@
 ((ac-js2 status "installed" recipe
          (:name ac-js2 :description "An attempt at context sensitive auto-completion for Javascript" :type github :pkgname "ScottyB/ac-js2" :depends
                 (skewer-mode auto-complete)))
- (ac-python status "installed" recipe
-            (:name ac-python :description "Simple Python Completion Source for Auto-Complete" :depends auto-complete :type http :url "http://chrispoole.com/downloads/ac-python.el" :features ac-python))
  (anything status "installed" recipe
            (:name anything :website "http://www.emacswiki.org/emacs/Anything" :description "Open anything / QuickSilver-like candidate-selection framework" :type git :url "http://repo.or.cz/r/anything-config.git" :shallow nil :load-path
                   ("." "extensions" "contrib")
@@ -62,6 +60,14 @@
                 (:name fringe-helper :description "Helper functions for fringe bitmaps." :type github :pkgname "nschum/fringe-helper.el"))
  (fuzzy status "installed" recipe
         (:name fuzzy :website "https://github.com/auto-complete/fuzzy-el" :description "Fuzzy matching utilities for GNU Emacs" :type github :pkgname "auto-complete/fuzzy-el"))
+ (gh status "installed" recipe
+     (:name gh :description "Github API client libraries" :type github :pkgname "sigma/gh.el" :depends
+            (pcache logito request)
+            :autoloads nil))
+ (gist status "installed" recipe
+       (:name gist :type github :pkgname "defunkt/gist.el" :depends
+              (gh tabulated-list)
+              :description "Emacs integration for gist.github.com" :website "http://github.com/defunkt/gist.el"))
  (git-timemachine status "installed" recipe
                   (:name git-timemachine :description "Step through historic versions of git controlled file using everyone's favourite editor" :type github :minimum-emacs-version "24" :pkgname "pidu/git-timemachine"))
  (highlight-symbol status "installed" recipe
@@ -96,6 +102,8 @@
  (popwin status "installed" recipe
          (:name popwin :description "Popup Window Manager." :website "https://github.com/m2ym/popwin-el" :type github :pkgname "m2ym/popwin-el" :load-path
                 ("." "misc")))
+ (pos-tip status "installed" recipe
+          (:name pos-tip :description "Show tooltip at point" :type emacswiki))
  (python-environment status "installed" recipe
                      (:name python-environment :description "Python virtualenv API for Emacs Lisp" :type github :pkgname "tkf/emacs-python-environment" :depends
                             (deferred)))
