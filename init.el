@@ -30,7 +30,6 @@
 (setq default-file-name-coding-system 'japanese-cp932-dos)
 
 ;; Appearance
-(load-theme 'tango-dark)
 (menu-bar-mode 0)
 
 ;; Column
@@ -83,6 +82,32 @@
 ;;;
 ;;;
 ;;;
+
+;;
+;;
+;; LOAD CUSTOMIZATION
+;;
+;;
+
+(setq custom-file "~/.emacs.d/.custom.el")
+(load custom-file)
+
+;;
+;;
+;;
+;;
+;;
+
+;;; Theme
+(setq solarized-contrast "low")
+(setq solarized-termcolors 256)
+(load-theme 'solarized)
+
+(defun on-after-init ()
+  (unless (display-graphic-p (selected-frame))
+    (set-face-background 'default "unspecified-bg" (selected-frame))))
+
+(add-hook 'window-setup-hook 'on-after-init)
 
 (autoload 'php-mode "php-mode-improved" "Major mode for editing php code." t)
 (add-to-list 'auto-mode-alist '("\\.php$" . php-mode))
@@ -537,12 +562,3 @@
 ;; Keep shell environment variable
 (when (memq window-system '(mac ns))
   (exec-path-from-shell-initialize))
-
-;;
-;;
-;; BELOW RESERVE FOR THE CUSTOM
-;;
-;;
-
-(setq custom-file "~/.emacs.d/.custom.el")
-(load custom-file)
