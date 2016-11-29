@@ -83,26 +83,6 @@
 ;;;
 ;;;
 
-;;
-;;
-;; LOAD CUSTOMIZATION
-;;
-;;
-
-(setq custom-file "~/.emacs.d/.custom.el")
-(load custom-file)
-
-;;
-;;
-;;
-;;
-;;
-
-;;; Theme
-(setq solarized-contrast "low")
-(setq solarized-termcolors 256)
-(load-theme 'solarized)
-
 (defun on-after-init ()
   (unless (display-graphic-p (selected-frame))
     (set-face-background 'default "unspecified-bg" (selected-frame))))
@@ -562,3 +542,28 @@
 ;; Keep shell environment variable
 (when (memq window-system '(mac ns))
   (exec-path-from-shell-initialize))
+
+;;
+;;
+;; LOAD CUSTOMIZATION
+;;
+;;
+
+(setq custom-file "~/.emacs.d/.custom.el")
+(load custom-file)
+
+;;;
+;;; THEME
+;;;
+;;; Note solarized should be marked as `custom-safe-themes` in the `custom-file`
+;;;
+
+(setq solarized-contrast "low")
+(setq solarized-termcolors 256)
+(load-theme 'solarized)
+
+;;
+;;
+;;
+;;
+;;
