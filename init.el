@@ -56,7 +56,7 @@
 
 (setq auto-install-directory "~/.emacs.d/auto-install/")
 (require 'auto-install)
-(ignore-errors (auto-install-update-emacswiki-package-name t) t)
+;; (ignore-errors (auto-install-update-emacswiki-package-name t) t)
 (auto-install-compatibility-setup)
 
 (add-to-list 'load-path "~/.emacs.d/el-get/el-get")
