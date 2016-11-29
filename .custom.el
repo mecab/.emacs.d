@@ -243,6 +243,10 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(default ((t (:foreground "#93a1a1"))))
+ '(font-lock-comment-delimiter-face ((t (:foreground "#657b83" :slant italic))))
+ '(font-lock-comment-face ((t (:foreground "#657b83" :slant italic))))
+ '(highlight ((t (:background "#cb4b16" :foreground "#fdf6e3"))))
  '(js2-function-param ((t (:foreground "Green"))))
  '(powerline-active1 ((t (:background "cyan" :foreground "brightwhite"))) t)
  '(powerline-active2 ((t (:inherit mode-line :background "brightwhite"))) t)
