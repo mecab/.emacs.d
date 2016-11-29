@@ -5,6 +5,7 @@
  ;; If there is more than one, they won't work right.
  '(LaTeX-command "platex")
  '(LaTeX-command-style (quote (("" "%(PDF)%(latex) %s"))))
+ '(TeX-PDF-mode t)
  '(TeX-command-list
    (quote
     (("pdf" "dvipdfmx -V 4 '%s' " TeX-run-command t nil)

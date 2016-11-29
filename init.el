@@ -321,8 +321,8 @@
 (global-set-key [wheel-down] 'scroll-up-with-lines)
 
 ;; TeX
-(load-library "tex-site.el")
-(load-library "auctex/preview.el")
+(require 'tex-site)
+;; (load-library "auctex/preview.el")
 (setq TeX-default-mode 'japanese-latex-mode)
  
 (setq japanese-LaTeX-default-style "jarticle")
