@@ -24,10 +24,19 @@
 
 ;; Language
 (set-language-environment "Japanese")
-(prefer-coding-system 'utf-8-dos)
-(set-default-coding-systems 'utf-8-dos)
-(setq default-buffer-file-coding-system 'utf-8-dos)
-(setq default-file-name-coding-system 'japanese-cp932-dos)
+(if (eq system-type 'windows-nt)
+    (progn
+      ;; Encoding settings for Windows
+      (prefer-coding-system 'utf-8-dos)
+      (set-default-coding-systems 'utf-8-dos)
+      (setq buffer-file-coding-system 'utf-8-dos)
+      (setq default-file-name-coding-system 'japanese-cp932-dos))
+
+  ;; Otherwise
+  (prefer-coding-system 'utf-8-unix)
+  (set-default-coding-systems 'utf-8-unix)
+  (setq buffer-file-coding-system 'utf-8-unix)
+  )
 
 ;; Appearance
 (menu-bar-mode 0)
