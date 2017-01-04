@@ -228,10 +228,14 @@
  '(js2-include-node-externs t)
  '(js2-indent-on-enter-key t)
  '(org-export-backends (quote (ascii html icalendar latex md odt)))
+ '(package-selected-packages
+   (quote
+    (xah-lookup tabulated-list python-mode magit git-gutter-fringe+ emmet-mode)))
  '(preview-dvipng-command "mudraw -o \"%m/prev%%03d.png\" %(pf)")
  '(tabbar-background-color "#1c1c1c")
  '(tabbar-separator (quote (1)))
  '(web-mode-code-indent-offset 2)
+ '(web-mode-enable-auto-closing t)
  '(web-mode-markup-indent-offset 2)
  '(whitespace-style
    (quote
