@@ -60,6 +60,10 @@
                           (feat feats)
                         (unload-feature feat t))))
                   (require 'el-get))))
+ (emacs-async status "installed" recipe
+              (:name emacs-async :description "Simple library for asynchronous processing in Emacs" :type github :pkgname "jwiegley/emacs-async"))
+ (emmet-mode status "installed" recipe
+             (:name emmet-mode :website "https://github.com/smihica/emmet-mode" :description "Produce HTML from CSS-like selectors." :type "github" :branch "master" :pkgname "smihica/emmet-mode"))
  (epc status "installed" recipe
       (:name epc :description "An RPC stack for Emacs Lisp" :type github :pkgname "kiwanami/emacs-epc" :depends
              (deferred ctable)))
@@ -109,6 +113,19 @@
             (:name let-alist :description "Easily let-bind values of an assoc-list by their names." :builtin "25.0.50" :type elpa :url "https://elpa.gnu.org/packages/let-alist.html"))
  (logito status "installed" recipe
          (:name logito :type github :pkgname "sigma/logito" :description "logging library for Emacs" :website "http://github.com/sigma/logito"))
+ (magit status "installed" recipe
+        (:name magit :website "https://github.com/magit/magit#readme" :description "It's Magit! An Emacs mode for Git." :type github :pkgname "magit/magit" :branch "master" :minimum-emacs-version "24.4" :depends
+               (dash with-editor emacs-async)
+               :info "Documentation" :load-path "lisp/" :compile "lisp/" :build
+               `(("make" ,(format "EMACSBIN=%s" el-get-emacs)
+                  "docs")
+                 ("touch" "lisp/magit-autoloads.el"))
+               :build/berkeley-unix
+               `(("gmake" ,(format "EMACSBIN=%s" el-get-emacs)
+                  "docs")
+                 ("touch" "lisp/magit-autoloads.el"))
+               :build/windows-nt
+               (with-temp-file "lisp/magit-autoloads.el" nil)))
  (markdown-mode status "installed" recipe
                 (:name markdown-mode :description "Major mode to edit Markdown files in Emacs" :website "http://jblevins.org/projects/markdown-mode/" :type github :pkgname "jrblevin/markdown-mode" :prepare
                        (add-to-list 'auto-mode-alist
@@ -116,6 +133,46 @@
  (marshal status "installed" recipe
           (:name marshal :description "EIEIO marshalling, inspired by Go tagged structs." :type github :pkgname "sigma/marshal.el" :depends
                  (ht)))
+ (package status "installed" recipe
+          (:name package :description "ELPA implementation (\"package.el\") from Emacs 24" :builtin "24" :type http :url "https://repo.or.cz/w/emacs.git/blob_plain/ba08b24186711eaeb3748f3d1f23e2c2d9ed0d09:/lisp/emacs-lisp/package.el" :features package :post-init
+                 (progn
+                   (let
+                       ((old-package-user-dir
+                         (expand-file-name
+                          (convert-standard-filename
+                           (concat
+                            (file-name-as-directory default-directory)
+                            "elpa")))))
+                     (when
+                         (file-directory-p old-package-user-dir)
+                       (add-to-list 'package-directory-list old-package-user-dir)))
+                   (setq package-archives
+                         (bound-and-true-p package-archives))
+                   (let
+                       ((protocol
+                         (if
+                             (and
+                              (fboundp 'gnutls-available-p)
+                              (gnutls-available-p))
+                             "https://"
+                           (lwarn
+                            '(el-get tls)
+                            :warning "Your Emacs doesn't support HTTPS (TLS)%s"
+                            (if
+                                (eq system-type 'windows-nt)
+                                ",\n  see https://github.com/dimitri/el-get/wiki/Installation-on-Windows." "."))
+                           "http://"))
+                        (archives
+                         '(("melpa" . "melpa.org/packages/")
+                           ("gnu" . "elpa.gnu.org/packages/")
+                           ("marmalade" . "marmalade-repo.org/packages/"))))
+                     (dolist
+                         (archive archives)
+                       (add-to-list 'package-archives
+                                    (cons
+                                     (car archive)
+                                     (concat protocol
+                                             (cdr archive)))))))))
  (pcache status "installed" recipe
          (:name pcache :description "persistent caching for Emacs" :type github :pkgname "sigma/pcache"))
  (php-mode-improved status "installed" recipe
@@ -166,6 +223,8 @@
                            (dash s)))
  (web-mode status "installed" recipe
            (:name web-mode :description "emacs major mode for editing PHP/JSP/ASP HTML templates (with embedded CSS and JS blocks)" :type github :pkgname "fxbois/web-mode"))
+ (with-editor status "installed" recipe
+              (:name with-editor :description "Use the Emacsclient as $EDITOR" :type github :pkgname "magit/with-editor"))
  (yaml-mode status "installed" recipe
             (:name yaml-mode :description "Simple major mode to edit YAML file for emacs" :type github :pkgname "yoshiki/yaml-mode"))
  (yasnippet status "installed" recipe
