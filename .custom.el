@@ -232,6 +232,12 @@
    (quote
     (xah-lookup tabulated-list python-mode magit git-gutter-fringe+ emmet-mode)))
  '(preview-dvipng-command "mudraw -o \"%m/prev%%03d.png\" %(pf)")
+ '(shell-pop-shell-type
+   (quote
+    ("ansi-term" "*ansi-term*"
+     (lambda nil
+       (ansi-term shell-pop-term-shell)))))
+ '(shell-pop-universal-key "C-t")
  '(tabbar-background-color "#1c1c1c")
  '(tabbar-separator (quote (1)))
  '(web-mode-code-indent-offset 2)
