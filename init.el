@@ -498,6 +498,10 @@
 ;; C-tでshellをポップアップ
 (require 'shell-pop)
 
+;; Disable linum in ansi-term to avoid terminal corruption
+(defadvice linum-on(around my-linum-term-on() activate)
+  (unless (eq major-mode 'term-mode) ad-do-it))
+
 ;; Fix ansi-term redraws prompt on backspace in Node.js REPL.
 (defun toolbear:term-handle-more-ansi-escapes (proc char)
   "Handle additional ansi escapes."
