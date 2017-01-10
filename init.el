@@ -83,7 +83,6 @@
     (let (el-get-master-branch)
       (goto-char (point-max))
       (eval-print-last-sexp))))
-(el-get 'sync)
 
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
@@ -91,6 +90,13 @@
 (when (< emacs-major-version 24)
   ;; For important compatibility libraries like cl-lib
   (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
+
+;;; Additional packages
+
+(el-get-bundle elpa:python-mode) ;; Install latest python mode
+(el-get-bundle elpa:nvm)
+
+(el-get 'sync)
 (package-initialize)
 
 ;;;
