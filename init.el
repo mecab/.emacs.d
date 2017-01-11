@@ -95,6 +95,8 @@
 
 (el-get-bundle elpa:python-mode) ;; Install latest python mode
 (el-get-bundle elpa:nvm)
+(el-get-bundle elpa:tern)
+(el-get-bundle elpa:tern-auto-complete)
 
 (el-get 'sync)
 (package-initialize)
@@ -201,6 +203,9 @@
   (kui/flycheck-set-node-modules-bin 'javascript-jshint "jshint")
   (kui/flycheck-set-node-modules-bin 'javascript-eslint "eslint"))
 
+(require 'nvm)
+(nvm-use "v7.4.0")
+
 (add-hook 'js-mode-hook
           'kui/flycheck-set-checker-executable-from-node-modules)
 
@@ -226,7 +231,13 @@
 (add-hook 'js2-mode-hook
     (lambda ()
       (ac-js2-mode t)
+      (tern-mode t)
       ))
+
+(eval-after-load 'tern
+  '(progn
+     (require 'tern-auto-complete)
+           (tern-ac-setup)))
 
 ;; setting for flymake
 (require 'flymake)
@@ -312,8 +323,15 @@
 (defalias 'javascript-mode 'js2-mode)
 ; (require 'nxhtml)
 (require 'markdown-mode)
-; (require 'magit)
-; (require 'org)
+
+(require 'open-junk-file)
+(setq open-junk-file-format "~/Documents/junk/%Y-%m%d-%H%M%S.")
+(global-set-key "\C-xj" 'open-junk-file)
+
+(require 'org)
+(setq org-directory "~/Documents/junk")
+(setq org-agenda-files (list org-directory))
+
 ; (require 'org-compat)
 ; (require 'org-export-generic)
 
