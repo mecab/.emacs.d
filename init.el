@@ -572,6 +572,23 @@
 
 (global-set-key "\C-c\C-r" 'window-resizer)
 
+(defun send-region-to-clipboard (START END)
+  ;; Use https://github.com/skaji/remote-pbcopy-iterm2/blob/master/pbcopy as `cpbcopy`
+  (interactive "r")
+  (let ((tty (frame-parameter nil 'tty)))
+    (let ((infile (make-temp-file "send-region-to-clipboard")))
+      (write-region (buffer-substring (region-beginning) (region-end))
+                    nil
+                    infile
+                    nil
+                    'nomsg)
+      (with-temp-buffer
+        (call-process-shell-command "cpbcopy"
+                                    infile
+                                    (buffer-name (current-buffer)))
+        (write-region nil nil tty 'append 'nomsg))
+      (delete-file infile))))
+
 ;; With window-system (2/2)
 (unless (eq (window-system) nil)
   (require 'git-gutter-fringe+)
