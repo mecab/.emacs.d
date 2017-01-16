@@ -41,12 +41,18 @@
 ;; Appearance
 (menu-bar-mode 0)
 
-;; Use the terminal background
-(defun on-after-init ()
-  (unless (display-graphic-p (selected-frame))
-    (set-face-background 'default "unspecified-bg" (selected-frame))))
+(defun use-terminal-bgcolor (&optional frame)
+  "Set frame's background color to the terminal's one.
 
-(add-hook 'window-setup-hook 'on-after-init)
+If `frame' is nil, defaults to `(selected-frame)'.
+"
+
+  (let ((frame (if frame frame (selected-frame))))
+    (unless (display-graphic-p frame)
+      (set-face-background 'default "unspecified-bg" frame))))
+
+(add-hook 'window-setup-hook 'use-terminal-bgcolor)
+(add-hook 'after-make-frame-functions 'use-terminal-bgcolor)
 
 ;; Column
 (set-fill-column 80)
@@ -614,6 +620,23 @@
 ;; (setq solarized-contrast 'high)
 (setq solarized-termcolors 256)
 (load-theme 'solarized)
+
+;; Override whitespace faces
+
+(custom-set-faces (create-face-spec 'tabbar-modified
+                                    '(:foreground magenta)))
+(custom-set-faces (create-face-spec 'tabbar-selected
+                                    '(:background base3 :foreground base02)))
+(custom-set-faces (create-face-spec 'tabbar-selected-modified
+                                    '(:foreground magenta :background base3)))
+
+(custom-set-faces (create-face-spec 'whitespace-line
+                                    '(:foreground nil :background magenta)))
+(custom-set-faces (create-face-spec 'whitespace-indentation
+                                    '(:background orange)))
+(custom-set-faces (create-face-spec 'whitespace-trailing
+                                    '(:background orange)))
+
 ;;
 ;;
 ;;
