@@ -103,6 +103,7 @@ If `frame' is nil, defaults to `(selected-frame)'.
 (el-get-bundle elpa:nvm)
 (el-get-bundle elpa:tern)
 (el-get-bundle elpa:tern-auto-complete)
+(el-get-bundle gist:49eabc1978fe3d6dedb3ca5674a16ece:osc52e)
 
 (el-get 'sync)
 (package-initialize)
@@ -592,6 +593,13 @@ If `frame' is nil, defaults to `(selected-frame)'.
       (send-string-to-terminal (buffer-substring-no-properties
                                 (point-min) (point-max))))
     (delete-file infile)))
+
+(require 'osc52e)
+(osc52-set-cut-function)
+(defun send-region-to-clipboard-osc52e (START END)
+  (interactive "r")
+  (osc52-interprogram-cut-function (buffer-substring-no-properties
+                                    START END)))
 
 ;; With window-system (2/2)
 (unless (eq (window-system) nil)

@@ -142,6 +142,8 @@
       (:name nvm :type elpa :after nil))
  (open-junk-file status "installed" recipe
                  (:name open-junk-file :description "Open a junk (memo) file to try-and-error" :type emacswiki :features "open-junk-file"))
+ (osc52e status "installed" recipe
+         (:name osc52e :type git :url "https://gist.github.com/49eabc1978fe3d6dedb3ca5674a16ece.git" :after nil))
  (package status "installed" recipe
           (:name package :description "ELPA implementation (\"package.el\") from Emacs 24" :builtin "24" :type http :url "https://repo.or.cz/w/emacs.git/blob_plain/ba08b24186711eaeb3748f3d1f23e2c2d9ed0d09:/lisp/emacs-lisp/package.el" :features package :post-init
                  (progn
