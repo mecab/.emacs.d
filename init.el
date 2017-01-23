@@ -642,6 +642,10 @@ If `frame' is nil, defaults to `(selected-frame)'.
 (custom-set-faces (create-face-spec 'whitespace-trailing
                                     '(:background orange)))
 
+(custom-set-faces '(git-gutter:added ((t (:bold t)))))
+(custom-set-faces '(git-gutter:modified ((t (:bold t)))))
+(custom-set-faces '(git-gutter:deleteed ((t (:bold t)))))
+
 ;;
 ;;
 ;;
