@@ -2,7 +2,7 @@
 
 ;; (require 'cl)
 
-;; With window-system (1/2)
+;; With window-system
 ;; Continue to the place just before custom-set-variables
 (unless (eq (window-system) nil)
   (setq default-directory "~/")
@@ -601,10 +601,7 @@ If `frame' is nil, defaults to `(selected-frame)'.
   (osc52-interprogram-cut-function (buffer-substring-no-properties
                                     START END)))
 
-;; With window-system (2/2)
-(unless (eq (window-system) nil)
-  (require 'git-gutter-fringe+)
-  (add-hook 'prog-mode-hook 'git-gutter+-mode))
+(global-git-gutter-mode +1)
 
 ;; Keep shell environment variable
 (when (memq window-system '(mac ns))

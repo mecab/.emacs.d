@@ -90,11 +90,8 @@
        (:name gist :type github :pkgname "defunkt/gist.el" :depends
               (gh tabulated-list)
               :description "Emacs integration for gist.github.com" :website "http://github.com/defunkt/gist.el"))
- (git-gutter+ status "installed" recipe
-              (:name git-gutter+ :description "View, stage and revert Git changes straight from the buffer." :type github :pkgname "nonsequitur/git-gutter-plus"))
- (git-gutter-fringe+ status "installed" recipe
-                     (:name git-gutter-fringe+ :description "git-gutter-fringe+ is a display mode for git-gutter+.el. It uses the buffer fringe instead of the buffer margin." :type github :pkgname "nonsequitur/git-gutter-fringe-plus" :depends
-                            (git-gutter+ fringe-helper)))
+ (git-gutter status "installed" recipe
+             (:name git-gutter :description "Emacs port of GitGutter Sublime Text 2 Plugin" :website "https://github.com/syohex/emacs-git-gutter" :type github :pkgname "syohex/emacs-git-gutter"))
  (git-timemachine status "installed" recipe
                   (:name git-timemachine :description "Step through historic versions of git controlled file using everyone's favourite editor" :type github :minimum-emacs-version "24" :pkgname "pidu/git-timemachine"))
  (highlight-symbol status "installed" recipe
@@ -241,7 +238,7 @@
  (web-mode status "installed" recipe
            (:name web-mode :description "emacs major mode for editing PHP/JSP/ASP HTML templates (with embedded CSS and JS blocks)" :type github :pkgname "fxbois/web-mode"))
  (with-editor status "installed" recipe
-              (:name with-editor :description "Use the Emacsclient as $EDITOR" :type github :pkgname "magit/with-editor"))
+   (:name with-editor :description "Use the Emacsclient as $EDITOR" :type github :pkgname "magit/with-editor"))
  (yaml-mode status "installed" recipe
             (:name yaml-mode :description "Simple major mode to edit YAML file for emacs" :type github :pkgname "yoshiki/yaml-mode"))
  (yasnippet status "installed" recipe
