@@ -103,6 +103,7 @@ If `frame' is nil, defaults to `(selected-frame)'.
 (el-get-bundle elpa:nvm)
 (el-get-bundle elpa:tern)
 (el-get-bundle elpa:tern-auto-complete)
+(el-get-bundle elpa:ac-etags)
 (el-get-bundle gist:49eabc1978fe3d6dedb3ca5674a16ece:osc52e)
 
 (el-get 'sync)
@@ -150,9 +151,19 @@ If `frame' is nil, defaults to `(selected-frame)'.
 (define-key ac-menu-map "\C-n" 'ac-next)
 (define-key ac-menu-map "\C-p" 'ac-previous)
 
+(eval-after-load "etags"
+  '(progn
+     (ac-etags-setup)))
+
+(add-hook 'c-mode-common-hook 'ac-etags-ac-setup)
+(add-hook 'ruby-mode-common-hook 'ac-etags-ac-setup)
+
 (require 'linum)
 (setq linum-format
       (lambda (line) (propertize (format (let ((w (length (number-to-string (count-lines (point-min) (point-max)))))) (concat "%" (number-to-string w) "d ")) line) 'face 'linum)))
+(setq linum-delay t)
+(defadvice linum-schedule (around my-linum-schedule () activate)
+    (run-with-idle-timer 0.2 nil #'linum-update-current))
 (global-linum-mode t)
 
 ;; C coding style
@@ -606,6 +617,12 @@ If `frame' is nil, defaults to `(selected-frame)'.
 ;; Keep shell environment variable
 (when (memq window-system '(mac ns))
   (exec-path-from-shell-initialize))
+
+;; Spell checking
+
+(setq-default ispell-program-name "aspell")
+(eval-after-load "ispell"
+   '(add-to-list 'ispell-skip-region-alist '("[^\000-\377]+")))
 
 ;;
 ;;
