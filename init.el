@@ -58,7 +58,7 @@ If `frame' is nil, defaults to `(selected-frame)'.
 (set-fill-column 80)
 (column-number-mode 1)
 
-(add-to-list 'load-path "~/.emacs.d/site-lisp")
+(add-to-list 'load-path "~/.emacs.d/el-get/auctex")
 (add-to-list 'load-path "~/.emacs.d/elisp")
 (add-to-list 'load-path "~/.emacs.d/auto-install/")
 
@@ -105,6 +105,7 @@ If `frame' is nil, defaults to `(selected-frame)'.
 (el-get-bundle elpa:tern-auto-complete)
 (el-get-bundle elpa:ac-etags)
 (el-get-bundle gist:49eabc1978fe3d6dedb3ca5674a16ece:osc52e)
+(el-get-bundle elpa:auctex)
 
 (el-get 'sync)
 (package-initialize)
@@ -139,7 +140,7 @@ If `frame' is nil, defaults to `(selected-frame)'.
 (setq anything-samewindow nil)
 (global-set-key "\M-x" 'anything-M-x)
 (global-set-key "\C-xb" 'anything-buffers-list)
-(global-set-key "\M-." 'anything-imenu)
+;; (global-set-key "\M-." 'anything-imenu)
 
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'post-forward-angle-brackets)
@@ -222,7 +223,7 @@ If `frame' is nil, defaults to `(selected-frame)'.
   (kui/flycheck-set-node-modules-bin 'javascript-eslint "eslint"))
 
 (require 'nvm)
-(nvm-use "v7.4.0")
+(nvm-use "v8.1.2")
 
 (add-hook 'js-mode-hook
           'kui/flycheck-set-checker-executable-from-node-modules)
@@ -373,7 +374,6 @@ If `frame' is nil, defaults to `(selected-frame)'.
 (global-set-key [wheel-down] 'scroll-up-with-lines)
 
 ;; TeX
-(require 'tex-site)
 ;; (load-library "auctex/preview.el")
 (setq TeX-default-mode 'japanese-latex-mode)
  
@@ -616,6 +616,7 @@ If `frame' is nil, defaults to `(selected-frame)'.
 
 ;; Keep shell environment variable
 (when (memq window-system '(mac ns))
+  (add-to-list 'exec-path-from-shell-variables "NODE_PATH")
   (exec-path-from-shell-initialize))
 
 ;; Spell checking

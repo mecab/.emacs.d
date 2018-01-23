@@ -1,10 +1,14 @@
-((ac-js2 status "installed" recipe
+((ac-etags status "installed" recipe
+           (:name ac-etags :type elpa :after nil))
+ (ac-js2 status "installed" recipe
          (:name ac-js2 :description "An attempt at context sensitive auto-completion for Javascript" :type github :pkgname "ScottyB/ac-js2" :depends
                 (skewer-mode auto-complete)))
  (anything status "installed" recipe
            (:name anything :website "http://www.emacswiki.org/emacs/Anything" :description "Open anything / QuickSilver-like candidate-selection framework" :type git :url "http://repo.or.cz/r/anything-config.git" :shallow nil :load-path
                   ("." "extensions" "contrib")
                   :features anything))
+ (auctex status "installed" recipe
+         (:name auctex :type elpa :after nil))
  (auto-complete status "installed" recipe
                 (:name auto-complete :website "https://github.com/auto-complete/auto-complete" :description "The most intelligent auto-completion extension." :type github :pkgname "auto-complete/auto-complete" :depends
                        (popup fuzzy)
@@ -38,6 +42,11 @@
                      (:name descbinds-anything :description "Yet Another describe-bindings with anything" :type emacswiki :depends anything :features descbinds-anything))
  (direx status "installed" recipe
         (:name direx :description "Directory Explorer" :type github :pkgname "m2ym/direx-el"))
+ (dockerfile-mode status "installed" recipe
+                  (:name dockerfile-mode :description "An emacs mode for handling Dockerfiles." :type github :pkgname "spotify/dockerfile-mode" :prepare
+                         (progn
+                           (add-to-list 'auto-mode-alist
+                                        '("Dockerfile\\'" . dockerfile-mode)))))
  (el-get status "installed" recipe
          (:name el-get :website "https://github.com/dimitri/el-get#readme" :description "Manage the external elisp bits and pieces you depend upon." :type github :branch "master" :pkgname "dimitri/el-get" :info "." :compile
                 ("el-get.*\\.el$" "methods/")
@@ -224,6 +233,8 @@
                      (js2-mode simple-httpd)
                      :features skewer-setup :post-init
                      (skewer-setup)))
+ (solidity-mode status "installed" recipe
+                (:name solidity-mode :description "Language mode for Ethereum's Solidity Language" :type github :website "https://github.com/ethereum/emacs-solidity" :pkgname "ethereum/emacs-solidity"))
  (tabbar status "installed" recipe
          (:name tabbar :description "Display a tab bar in the header line." :type github :pkgname "dholm/tabbar" :lazy t))
  (tabulated-list status "installed" recipe
@@ -238,7 +249,7 @@
  (web-mode status "installed" recipe
            (:name web-mode :description "emacs major mode for editing PHP/JSP/ASP HTML templates (with embedded CSS and JS blocks)" :type github :pkgname "fxbois/web-mode"))
  (with-editor status "installed" recipe
-   (:name with-editor :description "Use the Emacsclient as $EDITOR" :type github :pkgname "magit/with-editor"))
+              (:name with-editor :description "Use the Emacsclient as $EDITOR" :type github :pkgname "magit/with-editor"))
  (yaml-mode status "installed" recipe
             (:name yaml-mode :description "Simple major mode to edit YAML file for emacs" :type github :pkgname "yoshiki/yaml-mode"))
  (yasnippet status "installed" recipe

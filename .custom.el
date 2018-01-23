@@ -42,7 +42,7 @@
       :help "Run ConTeXt until completion")
      ("BibTeX" "pbibtex %s" TeX-run-BibTeX nil t :help "Run BibTeX")
      ("Biber" "biber %s" TeX-run-Biber nil t :help "Run Biber")
-     ("View" "%V" TeX-run-discard-or-function t t :help "Run Viewer")
+     ("View" "open -a Preview.app %s.pdf" TeX-run-command t t :help "Run Viewer")
      ("Print" "%p" TeX-run-command t t :help "Print the file")
      ("Queue" "%q" TeX-run-background nil t :help "View the printer queue" :visible TeX-queue-command)
      ("File" "%(o?)dvips %d -o %f " TeX-run-command t t :help "Generate PostScript file")
@@ -227,6 +227,9 @@
  '(js2-idle-timer-delay 0.1)
  '(js2-include-node-externs t)
  '(js2-indent-on-enter-key t)
+ '(org-agenda-files
+   (quote
+    ("/Users/masafumi.muta/Documents/junk/2017-0227-125238.org" "/Users/masafumi.muta/Documents/junk/2017-0202-215145_forkbomb_shirt_order.org")))
  '(org-export-backends (quote (ascii html icalendar latex md odt)))
  '(package-selected-packages
    (quote
@@ -242,6 +245,7 @@
  '(tabbar-separator (quote (1)))
  '(web-mode-code-indent-offset 2)
  '(web-mode-enable-auto-closing t)
+ '(web-mode-enable-auto-indentation t)
  '(web-mode-markup-indent-offset 2)
  '(whitespace-style
    (quote
@@ -256,6 +260,9 @@
  '(default ((t (:foreground "#93a1a1"))))
  '(font-lock-comment-delimiter-face ((t (:foreground "#657b83" :slant italic))))
  '(font-lock-comment-face ((t (:foreground "#657b83" :slant italic))))
+ '(git-gutter:added ((t (:bold t))))
+ '(git-gutter:deleteed ((t (:bold t))))
+ '(git-gutter:modified ((t (:bold t))))
  '(highlight ((t (:background "#cb4b16" :foreground "#fdf6e3"))))
  '(js2-function-param ((t (:foreground "Green"))))
  '(powerline-active1 ((t (:background "cyan" :foreground "brightwhite"))) t)
@@ -266,5 +273,7 @@
  '(tabbar-selected ((t (:inherit tabbar-default :background "#002b26" :foreground "#a5e00f"))))
  '(tabbar-selected-modified ((t (:inherit tabbar-selected :background "white" :foreground "#d33682"))))
  '(tabbar-unselected ((t (:inherit tabbar-default))))
+ '(whitespace-indentation ((((background dark) (type graphic)) (:background "#cb4b16")) (((background dark) (type tty) (min-colors 256)) (:background "#d75f00")) (((background dark) (type tty) (min-colors 16)) (:background "brightred")) (((background dark) (type tty) (min-colors 8)) (:background "red")) (((background light) (type graphic)) (:background "#cb4b16")) (((background light) (type tty) (min-colors 256)) (:background "#d75f00")) (((background light) (type tty) (min-colors 16)) (:background "brightred")) (((background light) (type tty) (min-colors 8)) (:background "red"))))
  '(whitespace-line ((t nil)))
- '(whitespace-space ((t (:foreground "darkgray")))))
+ '(whitespace-space ((t (:foreground "darkgray"))))
+ '(whitespace-trailing ((((background dark) (type graphic)) (:background "#cb4b16")) (((background dark) (type tty) (min-colors 256)) (:background "#d75f00")) (((background dark) (type tty) (min-colors 16)) (:background "brightred")) (((background dark) (type tty) (min-colors 8)) (:background "red")) (((background light) (type graphic)) (:background "#cb4b16")) (((background light) (type tty) (min-colors 256)) (:background "#d75f00")) (((background light) (type tty) (min-colors 16)) (:background "brightred")) (((background light) (type tty) (min-colors 8)) (:background "red")))))
