@@ -667,7 +667,9 @@ If `frame' is nil, defaults to `(selected-frame)'.
                                     '(:foreground magenta :background base3)))
 
 (custom-set-faces (create-face-spec 'whitespace-line
-                                    '(:foreground nil :background magenta)))
+                                    '(:foreground unspecified
+                                                  :underline
+                                                  (:color "gray50" :style line))))
 (custom-set-faces (create-face-spec 'whitespace-indentation
                                     '(:background orange)))
 (custom-set-faces (create-face-spec 'whitespace-trailing

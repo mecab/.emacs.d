@@ -248,7 +248,7 @@
  '(whitespace-global-modes (quote (python-mode)))
  '(whitespace-style
    (quote
-    (face tabs spaces trailing lines space-before-tab newline indentation empty space-after-tab tab-mark)))
+    (face trailing tabs spaces lines-tail newline empty indentation space-after-tab space-before-tab tab-mark)))
  '(yas-trigger-key "TAB"))
 
 (custom-set-faces
@@ -256,7 +256,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:foreground "#93a1a1"))))
+ '(default ((t (:inherit nil :stipple nil :background "gray10" :foreground "#93a1a1" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 120 :width normal :foundry "nil" :family "Monaco"))))
  '(font-lock-comment-delimiter-face ((t (:foreground "#657b83" :slant italic))))
  '(font-lock-comment-face ((t (:foreground "#657b83" :slant italic))))
  '(git-gutter:added ((t (:bold t))))
@@ -273,6 +273,5 @@
  '(tabbar-selected-modified ((t (:inherit tabbar-selected :background "white" :foreground "#d33682"))))
  '(tabbar-unselected ((t (:inherit tabbar-default))))
  '(whitespace-indentation ((((background dark) (type graphic)) (:background "#cb4b16")) (((background dark) (type tty) (min-colors 256)) (:background "#d75f00")) (((background dark) (type tty) (min-colors 16)) (:background "brightred")) (((background dark) (type tty) (min-colors 8)) (:background "red")) (((background light) (type graphic)) (:background "#cb4b16")) (((background light) (type tty) (min-colors 256)) (:background "#d75f00")) (((background light) (type tty) (min-colors 16)) (:background "brightred")) (((background light) (type tty) (min-colors 8)) (:background "red"))))
- '(whitespace-line ((((background dark) (type graphic)) (:foreground nil :background "#d33682")) (((background dark) (type tty) (min-colors 256)) (:foreground nil :background "#af005f")) (((background dark) (type tty) (min-colors 16)) (:foreground nil :background "magenta")) (((background dark) (type tty) (min-colors 8)) (:foreground nil :background "magenta")) (((background light) (type graphic)) (:foreground nil :background "#d33682")) (((background light) (type tty) (min-colors 256)) (:foreground nil :background "#af005f")) (((background light) (type tty) (min-colors 16)) (:foreground nil :background "magenta")) (((background light) (type tty) (min-colors 8)) (:foreground nil :background "magenta"))))
  '(whitespace-space ((t (:foreground "darkgray"))))
  '(whitespace-trailing ((((background dark) (type graphic)) (:background "#cb4b16")) (((background dark) (type tty) (min-colors 256)) (:background "#d75f00")) (((background dark) (type tty) (min-colors 16)) (:background "brightred")) (((background dark) (type tty) (min-colors 8)) (:background "red")) (((background light) (type graphic)) (:background "#cb4b16")) (((background light) (type tty) (min-colors 256)) (:background "#d75f00")) (((background light) (type tty) (min-colors 16)) (:background "brightred")) (((background light) (type tty) (min-colors 8)) (:background "red")))))
