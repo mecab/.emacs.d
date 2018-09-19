@@ -286,7 +286,7 @@ If `frame' is nil, defaults to `(selected-frame)'.
 
 (require 'popwin)
 (setq popwin:close-popup-window-timer-interval 0.05)
-(setq display-buffer-function 'popwin:display-buffer)
+(popwin-mode 1)
 (push '(direx:direx-mode :position left :width 25 :dedicated t)
       popwin:special-display-config)
 (push '("*ginger*" :height 20 :noselect t) popwin:special-display-config)
