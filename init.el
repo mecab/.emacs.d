@@ -65,10 +65,10 @@ If `frame' is nil, defaults to `(selected-frame)'.
 (show-paren-mode 1)
 (setq show-paren-delay 0)
 (setq show-paren-style 'mixed)
-(set-face-attribute 'show-paren-match-face nil
-                    :background "dark slate blue")
-(set-face-attribute 'show-paren-mismatch-face nil
-                    :foreground "white" :background "medium violet red")
+;;(set-face-attribute 'show-paren-match-face nil
+;;                    :background "dark slate blue")
+;;(set-face-attribute 'show-paren-mismatch-face nil
+;;                    :foreground "white" :background "medium violet red")
 
 ;;;
 ;;;
@@ -106,6 +106,7 @@ If `frame' is nil, defaults to `(selected-frame)'.
 (el-get-bundle elpa:ac-etags)
 (el-get-bundle gist:49eabc1978fe3d6dedb3ca5674a16ece:osc52e)
 (el-get-bundle elpa:auctex)
+(el-get-bundle bastibe/org-journal)
 
 (el-get 'sync)
 (package-initialize)
@@ -159,13 +160,15 @@ If `frame' is nil, defaults to `(selected-frame)'.
 (add-hook 'c-mode-common-hook 'ac-etags-ac-setup)
 (add-hook 'ruby-mode-common-hook 'ac-etags-ac-setup)
 
-(require 'linum)
-(setq linum-format
-      (lambda (line) (propertize (format (let ((w (length (number-to-string (count-lines (point-min) (point-max)))))) (concat "%" (number-to-string w) "d ")) line) 'face 'linum)))
-(setq linum-delay t)
-(defadvice linum-schedule (around my-linum-schedule () activate)
-    (run-with-idle-timer 0.2 nil #'linum-update-current))
-(global-linum-mode t)
+;; (require 'linum)
+;; (setq linum-format
+;;       (lambda (line) (propertize (format (let ((w (length (number-to-string (count-lines (point-min) (point-max)))))) (concat "%" (number-to-string w) "d ")) line) 'face 'linum)))
+;; (setq linum-delay t)
+;; (defadvice linum-schedule (around my-linum-schedule () activate)
+;;     (run-with-idle-timer 0.2 nil #'linum-update-current))
+;; (global-linum-mode t)
+
+(global-display-line-numbers-mode t)
 
 ;; C coding style
 (add-hook 'c-mode-hook '(lambda () (hs-minor-mode 1)))
@@ -350,6 +353,15 @@ If `frame' is nil, defaults to `(selected-frame)'.
 (require 'org)
 (setq org-directory "~/Documents/junk")
 (setq org-agenda-files (list org-directory))
+(require 'org-ac)
+(org-ac/config-default)
+(require 'org-journal)
+(setq org-journal-dir "~/Documents/journal")
+(setq org-journal-file-format "%Y-%m%d.org")
+(setq org-journal-file-pattern "^\\(?1:[0-9][0-9][0-9][0-9]\\)-?\\(?2:[0-9][0-9]\\)\\(?3:[0-9][0-9]\\).*\\.org$")
+(setq org-journal-date-prefix "#+TITLE: ")
+(setq org-journal-date-format "%Y-%m-%d")
+(setq org-journal-time-prefix "* ")
 
 ; (require 'org-compat)
 ; (require 'org-export-generic)
@@ -590,32 +602,33 @@ If `frame' is nil, defaults to `(selected-frame)'.
 
 (global-set-key "\C-c\C-r" 'window-resizer)
 
-(defun send-region-to-clipboard (START END)
-  ;; Place https://github.com/skaji/remote-pbcopy-iterm2/blob/master/pbcopy as `cpbcopy`
-  (interactive "r")
-  (let ((infile (make-temp-file "send-region-to-clipboard")))
-    (write-region (buffer-substring (region-beginning) (region-end))
-                  nil
-                  infile
-                  nil
-                  'nomsg)
-    (with-temp-buffer
-      (call-process "cpbcopy" infile t)
-      (send-string-to-terminal (buffer-substring-no-properties
-                                (point-min) (point-max))))
-    (delete-file infile)))
+;; (defun send-region-to-clipboard (START END)
+;;   ;; Place https://github.com/skaji/remote-pbcopy-iterm2/blob/master/pbcopy as `cpbcopy`
+;;   (interactive "r")
+;;   (let ((infile (make-temp-file "send-region-to-clipboard")))
+;;     (write-region (buffer-substring (region-beginning) (region-end))
+;;                   nil
+;;                   infile
+;;                   nil
+;;                   'nomsg)
+;;     (with-temp-buffer
+;;       (call-process "cpbcopy" infile t)
+;;       (send-string-to-terminal (buffer-substring-no-properties
+;;                                 (point-min) (point-max))))
+;;     (delete-file infile)))
 
-(require 'osc52e)
-(osc52-set-cut-function)
-(defun send-region-to-clipboard-osc52e (START END)
-  (interactive "r")
-  (osc52-interprogram-cut-function (buffer-substring-no-properties
-                                    START END)))
+;; (require 'osc52e)
+;; (osc52-set-cut-function)
+;; (defun send-region-to-clipboard-osc52e (START END)
+;;   (interactive "r")
+;;   (osc52-interprogram-cut-function (buffer-substring-no-properties
+;;                                     START END)))
 
 (global-git-gutter-mode +1)
 
 ;; Keep shell environment variable
 (when (memq window-system '(mac ns))
+  (require 'exec-path-from-shell)
   (add-to-list 'exec-path-from-shell-variables "NODE_PATH")
   (exec-path-from-shell-initialize))
 

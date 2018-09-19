@@ -17,8 +17,11 @@
                          (add-to-list 'ac-dictionary-directories
                                       (expand-file-name "dict" default-directory))
                          (ac-config-default))))
+ (auto-complete-pcmp status "installed" recipe
+                     (:name auto-complete-pcmp :website "https://github.com/aki2o/auto-complete-pcmp" :description "Provide auto-complete sources using pcomplete results." :type github :pkgname "aki2o/auto-complete-pcmp" :depends
+                            (auto-complete log4e yaxception)))
  (cl-lib status "installed" recipe
-         (:name cl-lib :builtin "24.3" :type elpa :description "Properly prefixed CL functions and macros" :url "http://elpa.gnu.org/packages/cl-lib.html"))
+         (:name cl-lib :builtin "24.3" :type elpa :description "Properly prefixed CL functions and macros" :website "http://elpa.gnu.org/packages/cl-lib.html"))
  (color-theme status "installed" recipe
               (:name color-theme :description "An Emacs-Lisp package with more than 50 color themes for your use. For questions about color-theme" :website "http://www.nongnu.org/color-theme/" :type http-tar :options
                      ("xzf")
@@ -43,7 +46,9 @@
  (direx status "installed" recipe
         (:name direx :description "Directory Explorer" :type github :pkgname "m2ym/direx-el"))
  (dockerfile-mode status "installed" recipe
-                  (:name dockerfile-mode :description "An emacs mode for handling Dockerfiles." :type github :pkgname "spotify/dockerfile-mode" :prepare
+                  (:name dockerfile-mode :description "An emacs mode for handling Dockerfiles." :type github :pkgname "spotify/dockerfile-mode" :depends
+                         (s)
+                         :prepare
                          (progn
                            (add-to-list 'auto-mode-alist
                                         '("Dockerfile\\'" . dockerfile-mode)))))
@@ -93,8 +98,10 @@
         (:name fuzzy :website "https://github.com/auto-complete/fuzzy-el" :description "Fuzzy matching utilities for GNU Emacs" :type github :pkgname "auto-complete/fuzzy-el"))
  (gh status "installed" recipe
      (:name gh :description "Github API client libraries" :type github :pkgname "sigma/gh.el" :depends
-            (pcache logito request marshal)
+            (pcache logito request marshal s)
             :autoloads nil))
+ (ghub status "installed" recipe
+       (:name ghub :type github :description "Minuscule client for the Github API" :pkgname "magit/ghub"))
  (gist status "installed" recipe
        (:name gist :type github :pkgname "defunkt/gist.el" :depends
               (gh tabulated-list)
@@ -102,7 +109,7 @@
  (git-gutter status "installed" recipe
              (:name git-gutter :description "Emacs port of GitGutter Sublime Text 2 Plugin" :website "https://github.com/syohex/emacs-git-gutter" :type github :pkgname "syohex/emacs-git-gutter"))
  (git-timemachine status "installed" recipe
-                  (:name git-timemachine :description "Step through historic versions of git controlled file using everyone's favourite editor" :type github :minimum-emacs-version "24" :pkgname "pidu/git-timemachine"))
+                  (:name git-timemachine :description "Step through historic versions of git controlled file using everyone's favourite editor" :type git :url "https://gitlab.com/pidu/git-timemachine" :minimum-emacs-version "24"))
  (highlight-symbol status "installed" recipe
                    (:name highlight-symbol :description "Quickly highlight a symbol throughout the buffer and cycle through its locations." :type github :pkgname "nschum/highlight-symbol.el"))
  (ht status "installed" recipe
@@ -122,6 +129,8 @@
                 (:name json-snatcher :description "Find the path to a value in JSON" :type github :pkgname "Sterlingg/json-snatcher"))
  (let-alist status "installed" recipe
             (:name let-alist :description "Easily let-bind values of an assoc-list by their names." :builtin "25.0.50" :type elpa :url "https://elpa.gnu.org/packages/let-alist.html"))
+ (log4e status "installed" recipe
+        (:name log4e :website "https://github.com/aki2o/log4e" :description "provide logging framework for elisp." :type github :pkgname "aki2o/log4e"))
  (logito status "installed" recipe
          (:name logito :type github :pkgname "sigma/logito" :description "logging library for Emacs" :website "http://github.com/sigma/logito"))
  (magit status "installed" recipe
@@ -137,6 +146,9 @@
                  ("touch" "lisp/magit-autoloads.el"))
                :build/windows-nt
                (with-temp-file "lisp/magit-autoloads.el" nil)))
+ (magit-popup status "installed" recipe
+              (:name magit-popup :website "https://github.com/magit/magit-popup" :description "Define prefix-infix-suffix command combos" :type github :pkgname "magit/magit-popup" :depends
+                     (emacs-async dash)))
  (markdown-mode status "installed" recipe
                 (:name markdown-mode :description "Major mode to edit Markdown files in Emacs" :website "http://jblevins.org/projects/markdown-mode/" :type github :pkgname "jrblevin/markdown-mode" :prepare
                        (add-to-list 'auto-mode-alist
@@ -148,6 +160,11 @@
       (:name nvm :type elpa :after nil))
  (open-junk-file status "installed" recipe
                  (:name open-junk-file :description "Open a junk (memo) file to try-and-error" :type emacswiki :features "open-junk-file"))
+ (org-ac status "installed" recipe
+         (:name org-ac :website "https://github.com/aki2o/org-ac" :description "provide auto-complete sources for org-mode." :type github :pkgname "aki2o/org-ac" :depends
+                (auto-complete-pcmp log4e yaxception)))
+ (org-journal status "installed" recipe
+              (:name org-journal :type github :pkgname "bastibe/org-journal" :after nil))
  (osc52e status "installed" recipe
          (:name osc52e :type git :url "https://gist.github.com/49eabc1978fe3d6dedb3ca5674a16ece.git" :after nil))
  (package status "installed" recipe
@@ -205,7 +222,7 @@
          (:name popwin :description "Popup Window Manager." :website "https://github.com/m2ym/popwin-el" :type github :pkgname "m2ym/popwin-el" :load-path
                 ("." "misc")))
  (pos-tip status "installed" recipe
-          (:name pos-tip :description "Show tooltip at point" :type emacswiki))
+          (:name pos-tip :description "Show tooltip at point" :type github :pkgname "pitkali/pos-tip"))
  (python-environment status "installed" recipe
                      (:name python-environment :description "Python virtualenv API for Emacs Lisp" :type github :pkgname "tkf/emacs-python-environment" :depends
                             (deferred)))
@@ -223,7 +240,7 @@
  (scss-mode status "installed" recipe
             (:name scss-mode :description "Major mode for editing SCSS files(http://sass-lang.com)" :type github :pkgname "antonj/scss-mode"))
  (seq status "installed" recipe
-      (:name seq :description "Sequence manipulation library for Emacs" :builtin "25" :type github :pkgname "NicolasPetton/seq.el"))
+      (:name seq :description "Sequence manipulation functions" :builtin "25" :type elpa :website "https://elpa.gnu.org/packages/seq.html"))
  (shell-pop status "installed" recipe
             (:name shell-pop :description "Helps you pop up and pop out shell buffer easily." :website "https://github.com/kyagi/shell-pop-el" :type github :pkgname "kyagi/shell-pop-el"))
  (simple-httpd status "installed" recipe
@@ -253,5 +270,6 @@
  (yaml-mode status "installed" recipe
             (:name yaml-mode :description "Simple major mode to edit YAML file for emacs" :type github :pkgname "yoshiki/yaml-mode"))
  (yasnippet status "installed" recipe
-            (:name yasnippet :website "https://github.com/capitaomorte/yasnippet.git" :description "YASnippet is a template system for Emacs." :type github :pkgname "capitaomorte/yasnippet" :compile "yasnippet.el" :submodule nil :build
-                   (("git" "submodule" "update" "--init" "--" "snippets")))))
+            (:name yasnippet :website "https://github.com/capitaomorte/yasnippet.git" :description "YASnippet is a template system for Emacs." :type github :pkgname "capitaomorte/yasnippet" :compile "yasnippet.el" :submodule nil))
+ (yaxception status "installed" recipe
+             (:name yaxception :website "https://github.com/aki2o/yaxception" :description "provide framework about exception like Java for elisp." :type github :pkgname "aki2o/yaxception")))

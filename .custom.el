@@ -227,9 +227,7 @@
  '(js2-idle-timer-delay 0.1)
  '(js2-include-node-externs t)
  '(js2-indent-on-enter-key t)
- '(org-agenda-files
-   (quote
-    ("/Users/masafumi.muta/Documents/junk/2017-0227-125238.org" "/Users/masafumi.muta/Documents/junk/2017-0202-215145_forkbomb_shirt_order.org")))
+ '(org-agenda-files (quote ("~/Documents/junk" "~/Documents/journal")))
  '(org-export-backends (quote (ascii html icalendar latex md odt)))
  '(package-selected-packages
    (quote
@@ -247,6 +245,7 @@
  '(web-mode-enable-auto-closing t)
  '(web-mode-enable-auto-indentation t)
  '(web-mode-markup-indent-offset 2)
+ '(whitespace-global-modes (quote (python-mode)))
  '(whitespace-style
    (quote
     (face tabs spaces trailing lines space-before-tab newline indentation empty space-after-tab tab-mark)))
@@ -274,6 +273,6 @@
  '(tabbar-selected-modified ((t (:inherit tabbar-selected :background "white" :foreground "#d33682"))))
  '(tabbar-unselected ((t (:inherit tabbar-default))))
  '(whitespace-indentation ((((background dark) (type graphic)) (:background "#cb4b16")) (((background dark) (type tty) (min-colors 256)) (:background "#d75f00")) (((background dark) (type tty) (min-colors 16)) (:background "brightred")) (((background dark) (type tty) (min-colors 8)) (:background "red")) (((background light) (type graphic)) (:background "#cb4b16")) (((background light) (type tty) (min-colors 256)) (:background "#d75f00")) (((background light) (type tty) (min-colors 16)) (:background "brightred")) (((background light) (type tty) (min-colors 8)) (:background "red"))))
- '(whitespace-line ((t nil)))
+ '(whitespace-line ((((background dark) (type graphic)) (:foreground nil :background "#d33682")) (((background dark) (type tty) (min-colors 256)) (:foreground nil :background "#af005f")) (((background dark) (type tty) (min-colors 16)) (:foreground nil :background "magenta")) (((background dark) (type tty) (min-colors 8)) (:foreground nil :background "magenta")) (((background light) (type graphic)) (:foreground nil :background "#d33682")) (((background light) (type tty) (min-colors 256)) (:foreground nil :background "#af005f")) (((background light) (type tty) (min-colors 16)) (:foreground nil :background "magenta")) (((background light) (type tty) (min-colors 8)) (:foreground nil :background "magenta"))))
  '(whitespace-space ((t (:foreground "darkgray"))))
  '(whitespace-trailing ((((background dark) (type graphic)) (:background "#cb4b16")) (((background dark) (type tty) (min-colors 256)) (:background "#d75f00")) (((background dark) (type tty) (min-colors 16)) (:background "brightred")) (((background dark) (type tty) (min-colors 8)) (:background "red")) (((background light) (type graphic)) (:background "#cb4b16")) (((background light) (type tty) (min-colors 256)) (:background "#d75f00")) (((background light) (type tty) (min-colors 16)) (:background "brightred")) (((background light) (type tty) (min-colors 8)) (:background "red")))))
