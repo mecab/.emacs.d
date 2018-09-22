@@ -362,6 +362,7 @@ If `frame' is nil, defaults to `(selected-frame)'.
 (setq org-journal-date-prefix "#+TITLE: ")
 (setq org-journal-date-format "%Y-%m-%d")
 (setq org-journal-time-prefix "* ")
+(require 'org-inlinetask)
 
 ; (require 'org-compat)
 ; (require 'org-export-generic)
@@ -500,11 +501,71 @@ If `frame' is nil, defaults to `(selected-frame)'.
                 (buffer-list))))
 (setq tabbar-buffer-list-function 'my-tabbar-buffer-list)
 
+;; These functions move the current tab to the left or to the right. Binding the functions to the C-S-<prior> and C-S-<next> key sequences is also shown.
+
+(defun tabbar-move-current-tab-one-place-left ()
+  "Move current tab one place left, unless it's already the leftmost."
+  (interactive)
+  (let* ((bufset (tabbar-current-tabset t))
+         (old-bufs (tabbar-tabs bufset))
+         (first-buf (car old-bufs))
+         (new-bufs (list)))
+    (if (string= (buffer-name) (format "%s" (car first-buf)))
+        old-bufs ; the current tab is the leftmost
+      (setq not-yet-this-buf first-buf)
+      (setq old-bufs (cdr old-bufs))
+      (while (and
+              old-bufs
+              (not (string= (buffer-name) (format "%s" (car (car old-bufs))))))
+        (push not-yet-this-buf new-bufs)
+        (setq not-yet-this-buf (car old-bufs))
+        (setq old-bufs (cdr old-bufs)))
+      (if old-bufs ; if this is false, then the current tab's buffer name is mysteriously missing
+          (progn
+            (push (car old-bufs) new-bufs) ; this is the tab that was to be moved
+            (push not-yet-this-buf new-bufs)
+            (setq new-bufs (reverse new-bufs))
+            (setq new-bufs (append new-bufs (cdr old-bufs))))
+        (error "Error: current buffer's name was not found in Tabbar's buffer list."))
+      (set bufset new-bufs)
+      (tabbar-set-template bufset nil)
+      (tabbar-display-update))))
+
+(defun tabbar-move-current-tab-one-place-right ()
+  "Move current tab one place right, unless it's already the rightmost."
+  (interactive)
+  (let* ((bufset (tabbar-current-tabset t))
+         (old-bufs (tabbar-tabs bufset))
+         (first-buf (car old-bufs))
+         (new-bufs (list)))
+    (while (and
+            old-bufs
+            (not (string= (buffer-name) (format "%s" (car (car old-bufs))))))
+      (push (car old-bufs) new-bufs)
+      (setq old-bufs (cdr old-bufs)))
+    (if old-bufs ; if this is false, then the current tab's buffer name is mysteriously missing
+        (progn
+          (setq the-buffer (car old-bufs))
+          (setq old-bufs (cdr old-bufs))
+          (if old-bufs ; if this is false, then the current tab is the rightmost
+              (push (car old-bufs) new-bufs))
+          (push the-buffer new-bufs)) ; this is the tab that was to be moved
+      (error "Error: current buffer's name was not found in Tabbar's buffer list."))
+    (setq new-bufs (reverse new-bufs))
+    (setq new-bufs (append new-bufs (cdr old-bufs)))
+    (set bufset new-bufs)
+    (tabbar-set-template bufset nil)
+    (tabbar-display-update)))
+
 ;; キーに割り当てる
 (global-set-key (kbd "M-<right>") 'tabbar-forward-tab)
 (global-set-key (kbd "M-C-f") 'tabbar-forward-tab)
 (global-set-key (kbd "M-<left>") 'tabbar-backward-tab)
 (global-set-key (kbd "M-C-b") 'tabbar-backward-tab)
+(global-set-key (kbd "M-S-<left>") 'tabbar-move-current-tab-one-place-left)
+(global-set-key (kbd "M-B") 'tabbar-move-current-tab-one-place-left)
+(global-set-key (kbd "M-S-<right>") 'tabbar-move-current-tab-one-place-right)
+(global-set-key (kbd "M-F") 'tabbar-move-current-tab-one-place-right)
 
 (require 'descbinds-anything)
 (descbinds-anything-install)
@@ -617,12 +678,12 @@ If `frame' is nil, defaults to `(selected-frame)'.
 ;;                                 (point-min) (point-max))))
 ;;     (delete-file infile)))
 
-;; (require 'osc52e)
-;; (osc52-set-cut-function)
-;; (defun send-region-to-clipboard-osc52e (START END)
-;;   (interactive "r")
-;;   (osc52-interprogram-cut-function (buffer-substring-no-properties
-;;                                     START END)))
+(require 'osc52e)
+(osc52-set-cut-function)
+(defun send-region-to-clipboard-osc52e (START END)
+  (interactive "r")
+  (osc52-interprogram-cut-function (buffer-substring-no-properties
+                                    START END)))
 
 (global-git-gutter-mode +1)
 
@@ -679,6 +740,8 @@ If `frame' is nil, defaults to `(selected-frame)'.
 (custom-set-faces '(git-gutter:modified ((t (:bold t)))))
 (custom-set-faces '(git-gutter:deleteed ((t (:bold t)))))
 
+(custom-set-faces (create-face-spec 'fringe
+                                    '(:foreground base02 :background base01)))
 ;;
 ;;
 ;;
