@@ -226,7 +226,10 @@ If `frame' is nil, defaults to `(selected-frame)'.
   (kui/flycheck-set-node-modules-bin 'javascript-eslint "eslint"))
 
 (require 'nvm)
-(nvm-use "v8.1.2")
+(condition-case err-var
+    (progn
+      (nvm-use "v8.1.2"))
+  ((error) (message"NVM set version failed. %s" err-var)))
 
 (add-hook 'js-mode-hook
           'kui/flycheck-set-checker-executable-from-node-modules)
