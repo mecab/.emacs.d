@@ -113,13 +113,11 @@ If `frame' is nil, defaults to `(selected-frame)'.
 ;;;
 ;;;
 
+(defalias 'javascript-mode 'js2-mode)
+
 (autoload 'php-mode "php-mode-improved" "Major mode for editing php code." t)
 (add-to-list 'auto-mode-alist '("\\.php$" . php-mode))
 (add-to-list 'auto-mode-alist '("\\.inc$" . php-mode))
-
-(autoload 'js2-mode "js2-mode" nil t)
-(add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
-(add-hook 'js-mode-hook 'js2-minor-mode)
 
 (add-hook 'python-mode-hook 'jedi:setup)
 (setq jedi:complete-on-dot t)
@@ -341,7 +339,6 @@ If `frame' is nil, defaults to `(selected-frame)'.
 (global-set-key "\C-x2" (lambda () (interactive)(split-window-vertically) (other-window 1)))
 (global-set-key "\C-x3" (lambda () (interactive)(split-window-horizontally) (other-window 1)))
 
-(defalias 'javascript-mode 'js2-mode)
 ; (require 'nxhtml)
 (require 'markdown-mode)
 
