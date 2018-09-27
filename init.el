@@ -113,7 +113,7 @@ If `frame' is nil, defaults to `(selected-frame)'.
 ;;;
 ;;;
 
-(defalias 'javascript-mode 'js2-mode)
+(add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
 
 (autoload 'php-mode "php-mode-improved" "Major mode for editing php code." t)
 (add-to-list 'auto-mode-alist '("\\.php$" . php-mode))
