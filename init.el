@@ -60,7 +60,6 @@ If `frame' is nil, defaults to `(selected-frame)'.
 
 (add-to-list 'load-path "~/.emacs.d/el-get/auctex")
 (add-to-list 'load-path "~/.emacs.d/elisp")
-(add-to-list 'load-path "~/.emacs.d/auto-install/")
 
 (show-paren-mode 1)
 (setq show-paren-delay 0)
@@ -75,11 +74,6 @@ If `frame' is nil, defaults to `(selected-frame)'.
 ;;; CONFIGURE PACKAGE MANAGERS
 ;;;
 ;;;
-
-(setq auto-install-directory "~/.emacs.d/auto-install/")
-(require 'auto-install)
-;; (ignore-errors (auto-install-update-emacswiki-package-name t) t)
-(auto-install-compatibility-setup)
 
 (add-to-list 'load-path "~/.emacs.d/el-get/el-get")
 (unless (require 'el-get nil 'noerror)
@@ -107,6 +101,8 @@ If `frame' is nil, defaults to `(selected-frame)'.
 (el-get-bundle gist:49eabc1978fe3d6dedb3ca5674a16ece:osc52e)
 (el-get-bundle elpa:auctex)
 (el-get-bundle bastibe/org-journal)
+(el-get-bundle gist:5457732:ginger-api)
+(el-get-bundle gist:7349439:ginger-rephrase-api)
 
 (el-get 'sync)
 (package-initialize)

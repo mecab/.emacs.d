@@ -102,6 +102,10 @@
 	    :autoloads nil))
  (ghub status "installed" recipe
        (:name ghub :type github :description "Minuscule client for the Github API" :pkgname "magit/ghub"))
+ (ginger-api status "installed" recipe
+             (:name ginger-api :type git :url "https://gist.github.com/5457732.git" :after nil))
+ (ginger-rephrase-api status "installed" recipe
+                      (:name ginger-rephrase-api :type git :url "https://gist.github.com/7349439.git" :after nil))
  (gist status "installed" recipe
        (:name gist :type github :pkgname "defunkt/gist.el" :depends
 	      (gh tabulated-list)
