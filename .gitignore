@@ -19,5 +19,7 @@ recentf
 /eshell/lastdir
 
 *.elc
-
 network-security.data
+url/cookies
+/.emacs.desktop
+
