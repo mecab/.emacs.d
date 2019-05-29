@@ -96,13 +96,15 @@ If `frame' is nil, defaults to `(selected-frame)'.
 (el-get-bundle elpa:python-mode) ;; Install latest python mode
 (el-get-bundle elpa:nvm)
 (el-get-bundle elpa:tern)
-(el-get-bundle elpa:tern-auto-complete)
-(el-get-bundle elpa:ac-etags)
+;; (el-get-bundle elpa:tern-auto-complete)
+;; (el-get-bundle elpa:ac-etags)
 (el-get-bundle gist:49eabc1978fe3d6dedb3ca5674a16ece:osc52e)
 (el-get-bundle elpa:auctex)
+(el-get-bundle jacktasia/dumb-jump)
 (el-get-bundle bastibe/org-journal)
 (el-get-bundle gist:5457732:ginger-api)
 (el-get-bundle gist:7349439:ginger-rephrase-api)
+(el-get-bundle github:company-mode/company-statistics)
 
 (el-get 'sync)
 (package-initialize)
@@ -140,19 +142,42 @@ If `frame' is nil, defaults to `(selected-frame)'.
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'post-forward-angle-brackets)
 
-(require 'auto-complete-config)
-(add-to-list 'ac-dictionary-directories "~/.emacs.d/el-get/auto-complete/ac-dict")
-(ac-config-default)
-(define-key ac-mode-map (kbd "M-TAB") 'auto-complete)
-(define-key ac-menu-map "\C-n" 'ac-next)
-(define-key ac-menu-map "\C-p" 'ac-previous)
+;; (require 'auto-complete-config)
+;; (add-to-list 'ac-dictionary-directories "~/.emacs.d/el-get/auto-complete/ac-dict")
+;; (ac-config-default)
+;; (define-key ac-mode-map (kbd "M-TAB") 'auto-complete)
+;; (define-key ac-menu-map "\C-n" 'ac-next)
+;; (define-key ac-menu-map "\C-p" 'ac-previous)
 
-(eval-after-load "etags"
-  '(progn
-     (ac-etags-setup)))
+(global-company-mode +1)
+(global-set-key (kbd "C-M-i") 'company-complete)
 
-(add-hook 'c-mode-common-hook 'ac-etags-ac-setup)
-(add-hook 'ruby-mode-common-hook 'ac-etags-ac-setup)
+;; C-n, C-pで補完候補を次/前の候補を選択
+(define-key company-active-map (kbd "C-n") 'company-select-next)
+(define-key company-active-map (kbd "C-p") 'company-select-previous)
+(define-key company-search-map (kbd "C-n") 'company-select-next)
+(define-key company-search-map (kbd "C-p") 'company-select-previous)
+;; C-sで絞り込む
+(define-key company-active-map (kbd "C-s") 'company-filter-candidates)
+;; TABで候補を設定
+(define-key company-active-map (kbd "C-i") 'company-complete-selection)
+;; 各種メジャーモードでも C-M-iで company-modeの補完を使う
+(define-key emacs-lisp-mode-map (kbd "C-M-i") 'company-complete)
+
+(add-hook 'js2-mode-hook 'tern-mode)
+(add-to-list 'company-backends '(company-tern :with company-dabbrev-code))
+(add-to-list 'company-backends '(company-web-html :with company-dabbrev-code))
+
+;; https://qiita.com/sune2/items/b73037f9e85962f5afb7#company-transformers
+(add-hook 'after-init-hook 'company-statistics-mode)
+(setq company-transformers '(company-sort-by-statistics company-sort-by-backend-importance))
+
+;; (eval-after-load "etags"
+;;   '(progn
+;;     (ac-etags-setup)))
+
+;; (add-hook 'c-mode-common-hook 'ac-etags-ac-setup)
+;; (add-hook 'ruby-mode-common-hook 'ac-etags-ac-setup)
 
 ;; (require 'linum)
 ;; (setq linum-format
@@ -220,43 +245,44 @@ If `frame' is nil, defaults to `(selected-frame)'.
   (kui/flycheck-set-node-modules-bin 'javascript-eslint "eslint"))
 
 (require 'nvm)
-(condition-case err-var
-    (progn
-      (nvm-use "v8.1.2"))
-  ((error) (message"NVM set version failed. %s" err-var)))
+(ignore-errors (nvm-use "v8.1.2"))
 
 (add-hook 'js-mode-hook
           'kui/flycheck-set-checker-executable-from-node-modules)
+(add-hook 'js-mode-hook
+          (lambda ()
+            (make-local-variable 'js-indent-level)
+            (setq js-indent-level 2)))
 
 (add-hook 'js2-mode-hook
           'kui/flycheck-set-checker-executable-from-node-modules)
 
-(defun ac-js2-setup-auto-complete-mode-patch ()
-  ;; Patch for ac-js2 to make it work property.
-  ;; https://github.com/ScottyB/ac-js2/issues/18
+;; (defun ac-js2-setup-auto-complete-mode-patch ()
+;;   ;; Patch for ac-js2 to make it work property.
+;;   ;; https://github.com/ScottyB/ac-js2/issues/18
 
-  "Setup ac-js2 to be used with auto-complete-mode."
-  (add-to-list 'ac-sources 'ac-source-js2)
-  (auto-complete-mode)
-  (eval '(ac-define-source "js2"
-           '((candidates . ac-js2-ac-candidates)
-             (document . ac-js2-ac-document)
-             (prefix .  ac-js2-ac-prefix)
-             (requires . -1)))))
+;;   "Setup ac-js2 to be used with auto-complete-mode."
+;;   (add-to-list 'ac-sources 'ac-source-js2)
+;;   (auto-complete-mode)
+;;   (eval '(ac-define-source "js2"
+;;            '((candidates . ac-js2-ac-candidates)
+;;              (document . ac-js2-ac-document)
+;;              (prefix .  ac-js2-ac-prefix)
+;;              (requires . -1)))))
 
-;; Activate the patch
-(advice-add 'ac-js2-setup-auto-complete-mode :override 'ac-js2-setup-auto-complete-mode-patch)
+;; ;; Activate the patch
+;; (advice-add 'ac-js2-setup-auto-complete-mode :override 'ac-js2-setup-auto-complete-mode-patch)
 
-(add-hook 'js2-mode-hook
-    (lambda ()
-      (ac-js2-mode t)
-      (tern-mode t)
-      ))
+;; (add-hook 'js2-mode-hook
+;;     (lambda ()
+;;       (ac-js2-mode t)
+;;       (tern-mode t)
+;;       ))
 
-(eval-after-load 'tern
-  '(progn
-     (require 'tern-auto-complete)
-           (tern-ac-setup)))
+;; (eval-after-load 'tern
+;;   '(progn
+;;      (require 'tern-auto-complete)
+;;            (tern-ac-setup)))
 
 ;; setting for flymake
 (require 'flymake)
@@ -278,18 +304,25 @@ If `frame' is nil, defaults to `(selected-frame)'.
 ; (powerline-default-theme)
 (setq imenu-auto-rescan t)
 
-(require 'direx)
-(global-set-key (kbd "C-x C-j") 'direx:jump-to-directory)
+; (require 'direx)
+(global-set-key (kbd "C-x C-j") 'neotree)
+(setq neo-smart-open t)
+(setq neo-persist-show t)
+(when neo-persist-show
+  (add-hook 'popwin:before-popup-hook
+            (lambda () (setq neo-persist-show nil)))
+  (add-hook 'popwin:after-popup-hook
+            (lambda () (setq neo-persist-show t))))
 
 (require 'popwin)
 (setq popwin:close-popup-window-timer-interval 0.05)
 (popwin-mode 1)
-(push '(direx:direx-mode :position left :width 25 :dedicated t)
-      popwin:special-display-config)
+; (push '(direx:direx-mode :position left :width 25 :dedicated t)
+;       popwin:special-display-config)
 (push '("*ginger*" :height 20 :noselect t) popwin:special-display-config)
 (push '("*anything*" :height 20) popwin:special-display-config)
 ; (push '("^\*magit" :regexp t :position left :width 100) popwin:special-display-config)
-(global-set-key (kbd "C-x C-j") 'direx:jump-to-directory-other-window)
+; (global-set-key (kbd "C-x C-j") 'direx:jump-to-directory-other-window)
 
 (global-set-key "\C-xf" 'anything-filelist+)
 
@@ -343,16 +376,17 @@ If `frame' is nil, defaults to `(selected-frame)'.
 (require 'markdown-mode)
 
 (require 'open-junk-file)
-(setq open-junk-file-format "~/Documents/junk/%Y-%m%d-%H%M%S.")
+(setq open-junk-file-format "~/Documents/junk/%Y-%m%d-%H%M%S.org")
 (global-set-key "\C-xj" 'open-junk-file)
 
 (require 'org)
 (setq org-directory "~/Documents/junk")
-(setq org-agenda-files (list org-directory))
-(require 'org-ac)
-(org-ac/config-default)
-(require 'org-journal)
 (setq org-journal-dir "~/Documents/journal")
+
+(setq org-agenda-files (list org-directory org-journal-dir))
+;; (require 'org-ac)
+;; (org-ac/config-default)
+(require 'org-journal)
 (setq org-journal-file-format "%Y-%m%d.org")
 (setq org-journal-file-pattern "^\\(?1:[0-9][0-9][0-9][0-9]\\)-?\\(?2:[0-9][0-9]\\)\\(?3:[0-9][0-9]\\).*\\.org$")
 (setq org-journal-date-prefix "#+TITLE: ")
@@ -442,7 +476,7 @@ If `frame' is nil, defaults to `(selected-frame)'.
 (setq yas-snippet-dirs
       '("~/.emacs.d/snippets" "~/.emacs.d/el-get/yasnippet/snippets")) ;; 作成するスニペットはここに入る
 (yas-global-mode 1)
-(add-to-list 'ac-sources '(ac-source-yasnippet))
+;; (add-to-list 'ac-sources '(ac-source-yasnippet))
 
 ;; 既存スニペットを挿入する
 (define-key yas-minor-mode-map (kbd "C-x i i") 'yas-insert-snippet)
@@ -609,9 +643,8 @@ If `frame' is nil, defaults to `(selected-frame)'.
 ;; C-tでshellをポップアップ
 (require 'shell-pop)
 
-;; Disable linum in ansi-term to avoid terminal corruption
-(defadvice linum-on(around my-linum-term-on() activate)
-  (unless (eq major-mode 'term-mode) ad-do-it))
+;; Disable display-line-numbers-mode in ansi-term to avoid terminal corruption
+(add-hook 'term-mode-hook (lambda () (display-line-numbers-mode -1)))
 
 ;; Fix ansi-term redraws prompt on backspace in Node.js REPL.
 (defun toolbear:term-handle-more-ansi-escapes (proc char)
@@ -623,6 +656,13 @@ If `frame' is nil, defaults to `(selected-frame)'.
       (term-move-columns (- col (term-current-column)))))
    (t)))
 (advice-add 'term-handle-ansi-escape :before #'toolbear:term-handle-more-ansi-escapes)
+
+(require 'fancy-narrow)
+(fancy-narrow-mode)
+
+(require 'docker)
+(require 'docker-tramp-compat)
+(set-variable 'docker-tramp-use-names t)
 
 (global-set-key "\C-h" 'delete-backward-char)
 

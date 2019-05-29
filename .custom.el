@@ -202,6 +202,7 @@
  '(anything-c-use-adaptative-sorting t)
  '(anything-idle-delay 0.01 t)
  '(anything-input-idle-delay 0.1 t)
+ '(company-tooltip-maximum-width 70)
  '(custom-safe-themes
    (quote
     ("8db4b03b9ae654d4a57804286eb3e332725c84d7cdab38463cb6b97d5762ad26" default)))
@@ -227,13 +228,11 @@
  '(js2-idle-timer-delay 0.1)
  '(js2-include-node-externs t)
  '(js2-indent-on-enter-key t)
- '(org-agenda-files
-   (quote
-    ("/Users/masafumi.muta/Documents/junk/2017-0202-215145_forkbomb_shirt_order.org" "/Users/masafumi.muta/Documents/junk/2017-0227-125238.org" "/Users/masafumi.muta/Documents/junk/2017-0303-162523.org" "/Users/masafumi.muta/Documents/junk/2017-0308-101207.org" "/Users/masafumi.muta/Documents/junk/2017-0313-124040-How-to-Prepare-CeBIT.org" "/Users/masafumi.muta/Documents/junk/2017-0410-160145_ecec.org" "/Users/masafumi.muta/Documents/junk/2017-0424-150450.org" "/Users/masafumi.muta/Documents/junk/2017-0503-192542_comment_akiyama.org" "/Users/masafumi.muta/Documents/junk/2017-0510-153446.org" "/Users/masafumi.muta/Documents/junk/2017-0514-193605_akiyama_review.org" "/Users/masafumi.muta/Documents/junk/2017-0613-144854-Matsumoto-intern.org" "/Users/masafumi.muta/Documents/junk/2017-0621-154712-hocino_ec_practice.org" "/Users/masafumi.muta/Documents/junk/2017-0622-112658.ecec-abstract.org" "/Users/masafumi.muta/Documents/junk/2017-0622-180555-ecec-related-work.org" "/Users/masafumi.muta/Documents/junk/2017-0628-132911-martin.org" "/Users/masafumi.muta/Documents/junk/2017-0705-125632-tsukuba-sohosai-brainstorming.org" "/Users/masafumi.muta/Documents/junk/2017-0707-160140.org" "/Users/masafumi.muta/Documents/junk/2017-0731-112120_fudge_ishikawa_mtg.org" "/Users/masafumi.muta/Documents/junk/2017-0828-152332-tsukuba-qr-app-field.org" "/Users/masafumi.muta/Documents/junk/2017-0913-130310-kanseikougakukai.org" "/Users/masafumi.muta/Documents/junk/2017-0919-093232-icec-keynote.org" "/Users/masafumi.muta/Documents/junk/2017-1002-082710-party-payment.org" "/Users/masafumi.muta/Documents/junk/2017-1006-150318_fudge-impl-todo.org" "/Users/masafumi.muta/Documents/junk/2017-1006-173850.org" "/Users/masafumi.muta/Documents/junk/2018-0122-111147.org" "/Users/masafumi.muta/Documents/junk/2018-0126-101419.org" "/Users/masafumi.muta/Documents/junk/2018-0126-170634-rekuten-beams-mtg.org" "/Users/masafumi.muta/Documents/junk/2018-0202-184015-beams.org" "/Users/masafumi.muta/Documents/junk/2018-0205-110929-beams-mtg.org" "/Users/masafumi.muta/Documents/junk/2018-0207-142634-tsukuba-mtg.org" "/Users/masafumi.muta/Documents/junk/2018-0209-140726-maeda-kensetsu.org" "/Users/masafumi.muta/Documents/junk/2018-0301-112913-tsukuba-intern-lunch-mtg.org" "/Users/masafumi.muta/Documents/junk/2018-0330-160004-review-kun-spec.org" "/Users/masafumi.muta/Documents/junk/2018-0823-141019-aizu-mtg-adgenda.org" "/Users/masafumi.muta/Documents/junk/2018-0829-120850-review-kun-api-format.org" "/Users/masafumi.muta/Documents/junk/2018-0907-112055-blockchainlab.org" "/Users/masafumi.muta/Documents/junk/2018-0910-123434-rbl.org" "/Users/masafumi.muta/Documents/junk/2018-0911-115156-rbl-explorer-features.org" "/Users/masafumi.muta/Documents/junk/2018-0912-150725-rbl-ledger.org" "/Users/masafumi.muta/Documents/junk/2018-0913-121423-rbl-blockchain-explorer-key-features.org" "/Users/masafumi.muta/Documents/journal/2018-0910.org" "/Users/masafumi.muta/Documents/journal/2018-0911.org" "/Users/masafumi.muta/Documents/journal/2018-0912.org" "/Users/masafumi.muta/Documents/journal/2018-0913.org" "/Users/masafumi.muta/Documents/journal/2018-0914.org" "/Users/masafumi.muta/Documents/journal/2018-0920.org" "/Users/masafumi.muta/Documents/journal/2018-0921.org")))
  '(org-export-backends (quote (ascii html icalendar latex md odt)))
+ '(org-journal-carryover-items "TODO=\"_CARRYOVER_\"")
  '(package-selected-packages
    (quote
-    (xah-lookup tabulated-list python-mode magit git-gutter-fringe+ emmet-mode)))
+    (dumb-jump tern xah-lookup tabulated-list python-mode magit git-gutter-fringe+ emmet-mode)))
  '(preview-dvipng-command "mudraw -o \"%m/prev%%03d.png\" %(pf)")
  '(shell-pop-shell-type
    (quote
@@ -267,6 +266,8 @@
  '(git-gutter:modified ((t (:bold t))))
  '(highlight ((t (:background "#cb4b16" :foreground "#fdf6e3"))))
  '(js2-function-param ((t (:foreground "Green"))))
+ '(org-code ((t (:foreground "white"))))
+ '(org-verbatim ((t (:foreground "white" :underline t))))
  '(powerline-active1 ((t (:background "cyan" :foreground "brightwhite"))) t)
  '(powerline-active2 ((t (:inherit mode-line :background "brightwhite"))) t)
  '(tabbar-button ((t (:inherit tabbar-default))))
