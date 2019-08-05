@@ -24,3 +24,5 @@ url/cookies
 /.emacs.desktop
 company-statistics-cache.el
 
+/transient
+/url
