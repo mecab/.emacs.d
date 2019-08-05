@@ -3,7 +3,8 @@
 		  ("." "extensions" "contrib")
 		  :features anything))
  (auctex status "installed" recipe
-	 (:name auctex :type elpa :after nil))
+	 (:name auctex :type elpa :after nil :depends
+		(s)))
  (cl-lib status "installed" recipe
 	 (:name cl-lib :builtin "24.3" :type elpa :description "Properly prefixed CL functions and macros" :website "http://elpa.gnu.org/packages/cl-lib.html"))
  (color-theme status "installed" recipe
@@ -110,7 +111,8 @@
 	    (pcache logito request marshal s)
 	    :autoloads nil))
  (ghub status "installed" recipe
-       (:name ghub :type github :description "Minuscule client for the Github API" :pkgname "magit/ghub"))
+       (:name ghub :type github :description "Minuscule client for the Github API" :pkgname "magit/ghub" :depends
+	      (graphql treepy)))
  (ginger-api status "installed" recipe
 	     (:name ginger-api :type git :url "https://gist.github.com/5457732.git" :after nil))
  (ginger-rephrase-api status "installed" recipe
@@ -140,7 +142,7 @@
  (json-snatcher status "installed" recipe
 		(:name json-snatcher :description "Find the path to a value in JSON" :type github :pkgname "Sterlingg/json-snatcher"))
  (let-alist status "installed" recipe
-	    (:name let-alist :description "Easily let-bind values of an assoc-list by their names." :builtin "25.0.50" :type elpa :url "https://elpa.gnu.org/packages/let-alist.html"))
+	    (:name let-alist :description "Easily let-bind values of an assoc-list by their names." :builtin "25.0.50" :type elpa :website "https://elpa.gnu.org/packages/let-alist.html"))
  (log4e status "installed" recipe
 	(:name log4e :website "https://github.com/aki2o/log4e" :description "provide logging framework for elisp." :type github :pkgname "aki2o/log4e"))
  (logito status "installed" recipe
@@ -150,8 +152,8 @@
 		  (dash f ht spinner)
 		  :type github :pkgname "emacs-lsp/lsp-mode"))
  (magit status "installed" recipe
-	(:name magit :website "https://github.com/magit/magit#readme" :description "It's Magit! An Emacs mode for Git." :type github :pkgname "magit/magit" :branch "master" :minimum-emacs-version "24.4" :depends
-	       (dash with-editor emacs-async)
+	(:name magit :website "https://github.com/magit/magit#readme" :description "It's Magit! An Emacs mode for Git." :type github :pkgname "magit/magit" :branch "master" :minimum-emacs-version "25.1" :depends
+	       (dash transient with-editor)
 	       :info "Documentation" :load-path "lisp/" :compile "lisp/" :build
 	       `(("make" ,(format "EMACSBIN=%s" el-get-emacs)
 		  "docs")
@@ -164,7 +166,7 @@
 	       (with-temp-file "lisp/magit-autoloads.el" nil)))
  (magit-popup status "installed" recipe
 	      (:name magit-popup :website "https://github.com/magit/magit-popup" :description "Define prefix-infix-suffix command combos" :type github :pkgname "magit/magit-popup" :depends
-		     (emacs-async dash)))
+		     (dash)))
  (markdown-mode status "installed" recipe
 		(:name markdown-mode :description "Major mode to edit Markdown files in Emacs" :website "http://jblevins.org/projects/markdown-mode/" :type github :pkgname "jrblevin/markdown-mode" :prepare
 		       (add-to-list 'auto-mode-alist
