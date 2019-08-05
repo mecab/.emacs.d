@@ -426,7 +426,20 @@ If `frame' is nil, defaults to `(selected-frame)'.
 (add-hook 'LaTeX-mode-hook (function (lambda ()
   
 )))
+
+;; フォントサイズ変更
+(defun change-font-size (size)
+  "Change font size (clearly `:height` in `face-attribute`) to given SIZE."
+
+  (interactive
+   (list
+    (read-number
+     (format "Input font size (current=%d): " (face-attribute 'default :height))
+     nil)))
  
+  (set-face-attribute 'default nil :height size)
+)
+
 (add-hook 'LaTeX-mode-hook 'turn-on-reftex)
 (setq reftex-plug-into-AUCTeX t)
  
