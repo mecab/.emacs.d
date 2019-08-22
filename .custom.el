@@ -202,6 +202,7 @@
  '(anything-c-use-adaptative-sorting t)
  '(anything-idle-delay 0.01 t)
  '(anything-input-idle-delay 0.1 t)
+ '(company-idle-delay 0.1)
  '(company-tooltip-maximum-width 70)
  '(custom-safe-themes
    (quote
@@ -230,9 +231,13 @@
  '(js2-indent-on-enter-key t)
  '(org-export-backends (quote (ascii html icalendar latex md odt)))
  '(org-journal-carryover-items "TODO=\"_CARRYOVER_\"")
+ '(org-journal-date-format "%Y-%m-%d")
+ '(org-journal-date-prefix "#+TITLE: ")
+ '(org-journal-file-format "%Y-%m%d.org")
+ '(org-journal-time-prefix "* ")
  '(package-selected-packages
    (quote
-    (dumb-jump tern xah-lookup tabulated-list python-mode magit git-gutter-fringe+ emmet-mode)))
+    (vue-html-mode ssass-mode edit-indirect dumb-jump tern xah-lookup tabulated-list python-mode magit git-gutter-fringe+ emmet-mode)))
  '(preview-dvipng-command "mudraw -o \"%m/prev%%03d.png\" %(pf)")
  '(shell-pop-shell-type
    (quote

@@ -101,7 +101,6 @@ If `frame' is nil, defaults to `(selected-frame)'.
 (el-get-bundle gist:49eabc1978fe3d6dedb3ca5674a16ece:osc52e)
 (el-get-bundle elpa:auctex)
 (el-get-bundle jacktasia/dumb-jump)
-(el-get-bundle bastibe/org-journal)
 (el-get-bundle gist:5457732:ginger-api)
 (el-get-bundle gist:7349439:ginger-rephrase-api)
 (el-get-bundle github:company-mode/company-statistics)
@@ -123,7 +122,7 @@ If `frame' is nil, defaults to `(selected-frame)'.
 
 (add-hook 'python-mode-hook 'jedi:setup)
 (setq jedi:complete-on-dot t)
-(semantic-mode 1)
+; (semantic-mode 1)
 (add-hook 'python-mode-hook (lambda () (setq imenu-create-index-function 'python-imenu-create-index)))
 (add-hook 'python-mode-hook (lambda () (electric-indent-mode nil)))
 
@@ -275,7 +274,7 @@ If `frame' is nil, defaults to `(selected-frame)'.
 
 ;; (add-hook 'js2-mode-hook
 ;;     (lambda ()
-;;       (ac-js2-mode t)
+;;       (ac-js2-mode t)fa
 ;;       (tern-mode t)
 ;;       ))
 
@@ -283,6 +282,18 @@ If `frame' is nil, defaults to `(selected-frame)'.
 ;;   '(progn
 ;;      (require 'tern-auto-complete)
 ;;            (tern-ac-setup)))
+
+(add-hook 'typescript-mode-hook
+          (lambda ()
+            (interactive)
+            (tide-setup)
+            (flycheck-mode +1)
+            (setq flycheck-check-syntax-automatically '(save mode-enabled))
+            (tide-hl-identifier-mode +1)
+            (company-mode +1)
+            (global-set-key (kbd "<f2>") nil)
+            (define-key typescript-mode-map (kbd "<f2>") 'tide-rename-symbol)
+            (global-set-key (kbd "M-*") 'tide-jump-back)))
 
 ;; setting for flymake
 (require 'flymake)
@@ -387,12 +398,12 @@ If `frame' is nil, defaults to `(selected-frame)'.
 ;; (require 'org-ac)
 ;; (org-ac/config-default)
 (require 'org-journal)
-(setq org-journal-file-format "%Y-%m%d.org")
-(setq org-journal-file-pattern "^\\(?1:[0-9][0-9][0-9][0-9]\\)-?\\(?2:[0-9][0-9]\\)\\(?3:[0-9][0-9]\\).*\\.org$")
-(setq org-journal-date-prefix "#+TITLE: ")
-(setq org-journal-date-format "%Y-%m-%d")
-(setq org-journal-time-prefix "* ")
-(require 'org-inlinetask)
+;; (setq org-journal-file-format "%Y-%m%d.org")
+;; (setq org-journal-file-pattern "^\\(?1:[0-9][0-9][0-9][0-9]\\)-?\\(?2:[0-9][0-9]\\)\\(?3:[0-9][0-9]\\).*\\.org$")
+;; (setq org-journal-date-prefix "#+TITLE: ")
+;; (setq org-journal-date-format "%Y-%m-%d")
+;; (setq org-journal-time-prefix "* ")
+; (require 'org-inlinetask)
 
 ; (require 'org-compat)
 ; (require 'org-export-generic)
@@ -678,6 +689,7 @@ If `frame' is nil, defaults to `(selected-frame)'.
 (set-variable 'docker-tramp-use-names t)
 
 (global-set-key "\C-h" 'delete-backward-char)
+(global-set-key (kbd "C-S-h") 'kill-whole-line)
 
 ;;; window-resizer
 ;;; from http://d.hatena.ne.jp/mooz/20100119/p1
@@ -735,6 +747,7 @@ If `frame' is nil, defaults to `(selected-frame)'.
                                     START END)))
 
 (global-git-gutter-mode +1)
+(global-eldoc-mode +1)
 
 ;; Keep shell environment variable
 (when (memq window-system '(mac ns))
